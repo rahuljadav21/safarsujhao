@@ -37,10 +37,14 @@ module.exports.register = async (req, res, next) => {
         // send data
         const user = await User.create({
             username,
+            firstname,
+            lastname,
             email,
             mobile,
             password: hashedPassword,
-            address
+            address,
+            tripPlans:[],
+            favouritePlaces:[]
         });
 
         delete user.password;
@@ -50,7 +54,7 @@ module.exports.register = async (req, res, next) => {
     }
 };
 
-module.exports.logOut = (req, res, next) => {
+module.exports.logOut = async(req, res, next) => {
     try {
         if (!req.params.id) return res.json({ msg: "User id is required " });
         onlineUsers.delete(req.params.id);
@@ -59,3 +63,17 @@ module.exports.logOut = (req, res, next) => {
         next(ex);
     }
 };
+
+module.exports.update = async (req,res,next) => {
+    try {
+        if(!req.params.id) return res.json({ msg: "User id is required "});
+        const {username,firstname,lastname,email,mobile,address,password} = req.body;
+        // encrypt password
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await User.findByIdAndUpdate(req.params.id,{username,firstname,lastname,email,mobile,address,password:hashedPassword})
+        await user.save();
+        res.status(200).send(user)
+    } catch (ex){
+        next(ex);
+    }
+}

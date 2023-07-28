@@ -8,6 +8,18 @@ const userSchema = new mongoose.Schema({
     max: 20,
     unique: true,
   },
+  firstname: {
+    type: String,
+    required: true,
+    min: 3,
+    max: 20,
+  },
+  lastname: {
+    type: String,
+    required: true,
+    min: 3,
+    max: 20
+  },
   email: {
     type: String,
     required: true,
@@ -34,4 +46,4 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("users", userSchema);
+module.exports = mongoose.model("User", userSchema);
