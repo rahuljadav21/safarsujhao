@@ -5,11 +5,12 @@ import Signup from "./pages/SignUp/Signup";
 import Destination from "./pages/Destination/Destination";
 import Dashboard from "./pages/Deshboard/Dashboard";
 import UserProfile from "./pages/UserProfile/UserProfile";
+import  Navbar  from "./components/Navbar";
 
 function App() {
   return (
     <BrowserRouter>
-
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>

@@ -1,0 +1,24 @@
+.plannedTrips {
+    display: flex;
+    justify-content: left;
+    margin: auto;
+    width: 80%;
+    overflow-x: auto;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.Card {
+    width: 350px;
+    max-width: 350px;
+    border-radius: 2rem;
+    margin: 20px;
+    display: block;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+}
