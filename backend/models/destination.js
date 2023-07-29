@@ -88,7 +88,13 @@ const destinationSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'Review'
     }
-    ]
+    ],
+  ratings:{
+    type: Number,
+    default:0,
+    min:1,
+    max:5
+  }
 
 });
 

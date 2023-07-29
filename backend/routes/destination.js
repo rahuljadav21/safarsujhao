@@ -11,4 +11,5 @@ router.get("/:id", getDestinationById);
 router.get("/",getAllDestination);
 router.delete("/:id", deleteDestination);
 
+
 module.exports = router;
