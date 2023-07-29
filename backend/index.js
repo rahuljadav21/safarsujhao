@@ -24,12 +24,14 @@ mongoose
 
 // import routes
 const authRoutes = require("./routes/auth")
+const destinationRoutes = require("./routes/destination")
 
 app.get('/', (req, res) => {
     res.send("<h3>API works.</h3>")
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/destination", destinationRoutes);
 
 app.listen(port, () =>
     console.log(`Server started on ${port}.`)

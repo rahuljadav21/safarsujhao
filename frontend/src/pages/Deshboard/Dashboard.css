@@ -1,8 +1,12 @@
+ :global {
+    font-family: 'Roboto', sans-serif;
+}
+
 .plannedTrips {
     display: flex;
     justify-content: left;
     margin: auto;
-    width: 80%;
+    width: 90%;
     overflow-x: auto;
 }
 
@@ -18,7 +22,17 @@
     display: block;
 }
 
+.Heading {
+    margin-top: 70px;
+    margin-bottom: 30px;
+    margin-left: 6%;
+    display: flex;
+    justify-content: left;
+}
+
 h2 {
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    margin-left: 6%;
 }
+

@@ -5,6 +5,7 @@ import "./Dashboard.css"
 function Dashboard() {
   return (
       <div>
+        <h1 className='Heading'> Hello, User! </h1>
         <h2> Your Planned Trips </h2>
         <div className='plannedTrips'>
           <DashboadCard/>
@@ -13,6 +14,10 @@ function Dashboard() {
           <DashboadCard/>
           <DashboadCard/>
           <DashboadCard/>
+        </div>
+          
+        <div>
+
         </div>
       </div>
   )
