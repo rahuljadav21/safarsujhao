@@ -6,18 +6,16 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import IconButton from '@mui/material/IconButton';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { getDestination } from "../../utils/APIRoutes"
+import { getDestination, addToPlan, getUser } from "../../utils/APIRoutes"
 import { useParams } from 'react-router-dom'
 import DestinationPhotos from '../../components/DestinationPhotos/DestinationPhotos'
 import Reviews from '../../components/Reviews/Reviews';
 import ReviewAdder from '../../components/ReviewAdder/ReviewAdder';
 import Maps from '../../components/Map/Maps';
 
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/features/auth'
+import AddToPlan from '../../components/AddToPlan/AddToPlan';
 
 
 const style = {
@@ -38,9 +36,11 @@ function Destination() {
   const { id } = useParams();
   const [destination, setDestination] = useState({});
   const [location, setLocation] = useState();
-
+  const [plans, setPlans] = useState([]);
+  const user = useSelector(selectUser);
 
   const fetchData = () => {
+    console.log(getDestination + id)
     fetch(getDestination + id)
       .then(response => {
         return response.json()
@@ -59,31 +59,22 @@ function Destination() {
     fetchData()
   }, [])
 
-  // useEffect(() => {
-  //   const loadData = async()=>{
-  //     const res = await axios.get(getDestination + id);
-  //     setDestination(res.data); 
-
-  //     setGeoJSON({
-  //       type: 'FeatureCollection',
-  //       features: [
-  //         { type: 'Feature', geometry: { type: 'Point', coordinates: [destination.geometry.coordinates[0], destination.geometry.coordinates[1]] } }
-  //       ]
-  //     })
-
-  //     setLocation({
-  //       longitude:destination.geometry.coordinates[0],
-  //       latitude:destination.geometry.coordinates[1]
-  //     })
-  //   }
-  //   loadData()
-  // }, [id])
-
-  console.log(destination)
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    
+    fetch(getUser + user._id)
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      console.log(data)
+      setPlans(data.tripPlans)
+    })
+    console.log(plans)
+    setOpen(true);
+  }
   const handleClose = () => setOpen(false);
-  console.log(destination)
+ 
 
 
   return (
@@ -131,7 +122,7 @@ function Destination() {
                   Add to Plan
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                  {/* <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                     {[1, 2, 3].map((value) => (
                       <ListItem
                         key={value}
@@ -145,33 +136,18 @@ function Destination() {
                         <ListItemText primary={`Line item ${value}`} />
                       </ListItem>
                     ))}
-                  </List>
+                  </List> */}
+                  <AddToPlan plans = {plans} id = {id} />
                 </Typography>
               </Box>
             </Modal>
           </div>
           <div className='info-map'>
 
-            {/* <Map
-              mapboxAccessToken="pk.eyJ1IjoicmFodWxqYWRhdjIxIiwiYSI6ImNsa210bmM2dDA0eHEzam9jZ3Rhd3Q2dm4ifQ.0Xs1A6kwST_uscYEYBwZkA"
-              initialViewState={{
-                longitude: 77.6809111,
-                latitude: 13.368001,
-                zoom: 9
-              }}
-              style={{ width: 400, height: 360 }}
-              mapStyle="mapbox://styles/mapbox/streets-v9"
-            >
-              <Source id="my-data" type="geojson" data={geojson}>
-                <Layer {...layerStyle} />
-              </Source>
-              <ScaleControl />
-            </Map> */}
             {
-              location? <Maps longitude={location.longitude} latitude={location.latitude} /> : "Map is Loading..."
-
+              location ? <Maps longitude={location.longitude} latitude={location.latitude} /> : "Map is Loading..."
             }
-            
+
 
           </div>
         </div>
