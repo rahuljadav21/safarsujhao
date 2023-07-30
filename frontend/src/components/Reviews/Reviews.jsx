@@ -16,7 +16,7 @@ function Reviews(props) {
                 <CardActionArea>
                     <CardContent>
                         <Typography gutterBottom component="div">
-                            <Rating name="read-only" value={4.4} readOnly />
+                            <Rating name="read-only" value={e.rating} readOnly />
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             {

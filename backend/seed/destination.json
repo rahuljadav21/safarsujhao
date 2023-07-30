@@ -1,0 +1,168 @@
+{
+  "travelDestinations" : [
+    {
+      "name": "Taj Mahal",
+      "city": "Agra",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "nearestAirport": "Agra Airport",
+      "nearestRailwayStation": "Agra Cantt Railway Station",
+      "timeToExplore": 3,
+      "expense": 2500,
+      "bestTimeToVisit": "October to March",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [78.0422, 27.1751]
+      },
+      "photos": [
+        {
+          "url": " /tajmahal1.jpg",
+          "filename": "tajmahal1.jpg"
+        },
+        {
+          "url": " /tajmahal2.jpg",
+          "filename": "tajmahal2.jpg"
+        }
+      ],
+      "reviews": [],
+      "ratings": 4.8
+    },
+    {
+      "name": "Gateway of India",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "country": "India",
+      "nearestAirport": "Chhatrapati Shivaji International Airport",
+      "nearestRailwayStation": "Chhatrapati Shivaji Terminus",
+      "timeToExplore": 2,
+      "expense": 1500,
+      "bestTimeToVisit": "November to February",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [72.8347, 18.9220]
+      },
+      "photos": [
+        {
+          "url": " /gatewayofindia1.jpg",
+          "filename": "gatewayofindia1.jpg"
+        },
+        {
+          "url": " /gatewayofindia2.jpg",
+          "filename": "gatewayofindia2.jpg"
+        }
+      ],
+      "reviews": [],
+      "ratings": 4.6
+    },
+    {
+      "name": "Red Fort",
+      "city": "Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "nearestAirport": "Indira Gandhi International Airport",
+      "nearestRailwayStation": "New Delhi Railway Station",
+      "timeToExplore": 4,
+      "expense": 1800,
+      "bestTimeToVisit": "October to March",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [77.2388, 28.6562]
+      },
+      "photos": [
+        {
+          "url": " /redfort1.jpg",
+          "filename": "redfort1.jpg"
+        },
+        {
+          "url": " /redfort2.jpg",
+          "filename": "redfort2.jpg"
+        }
+      ],
+      "reviews": [],
+      "ratings": 4.5
+    },
+    {
+      "name": "Hawa Mahal",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "country": "India",
+      "nearestAirport": "Jaipur International Airport",
+      "nearestRailwayStation": "Jaipur Junction",
+      "timeToExplore": 2,
+      "expense": 1200,
+      "bestTimeToVisit": "November to February",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [75.8269, 26.9239]
+      },
+      "photos": [
+        {
+          "url": " /hawamahal1.jpg",
+          "filename": "hawamahal1.jpg"
+        },
+        {
+          "url": " /hawamahal2.jpg",
+          "filename": "hawamahal2.jpg"
+        }
+      ],
+      "reviews": [],
+      "ratings": 4.4
+    },
+    {
+      "name": "Sarnath",
+      "city": "Varanasi",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "nearestAirport": "Lal Bahadur Shastri International Airport",
+      "nearestRailwayStation": "Varanasi Junction",
+      "timeToExplore": 1,
+      "expense": 800,
+      "bestTimeToVisit": "October to March",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [83.0059, 25.3761]
+      },
+      "photos": [
+        {
+          "url": " /sarnath1.jpg",
+          "filename": "sarnath1.jpg"
+        },
+        {
+          "url": " /sarnath2.jpg",
+          "filename": "sarnath2.jpg"
+        }
+      ],
+      "reviews": [],
+      "ratings": 4.3
+    },
+    {
+      "name": "Hussain Sagar Lake",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "nearestAirport": "Rajiv Gandhi International Airport",
+      "nearestRailwayStation": "Hyderabad Deccan Railway Station",
+      "timeToExplore": 1,
+      "expense": 600,
+      "bestTimeToVisit": "October to February",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [78.4620, 17.4239]
+      },
+      "photos": [
+        {
+          "url": " /hussainsagar1.jpg",
+          "filename": "hussainsagar1.jpg"
+        },
+        {
+          "url": " /hussainsagar2.jpg",
+          "filename": "hussainsagar2.jpg"
+        }
+      ],
+      "reviews": [],
+      "ratings": 4.2
+    }
+  ]
+  
+}
+
