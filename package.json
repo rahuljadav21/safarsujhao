@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "@mui/icons-material": "^5.14.1",
-    "@splidejs/react-splide": "^0.7.12",
-    "react-alert": "^7.0.3",
-    "react-icons": "^4.10.1",
-    "react-toastify": "^9.1.3"
-  }
-}
