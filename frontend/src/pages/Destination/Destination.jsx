@@ -18,6 +18,9 @@ import {getDestination} from "../../utils/APIRoutes"
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import DestinationPhotos from '../../components/DestinationPhotos/DestinationPhotos'
+import Reviews from '../../components/Reviews/Reviews';
+import ReviewAdder from '../../components/ReviewAdder/ReviewAdder';
+
 
 
 const style = {
@@ -152,67 +155,18 @@ function Destination() {
 
           </div>
         </div>
-        <div className="review-container">
+        <div className="comments" >
+
+          <div className="review-container">
           <div className="review-title">
             Reviews
           </div>
           <div className="reviews">
-            <Card sx={{ maxWidth: 545 }}>
-              <CardActionArea>
-                <CardContent>
-                  <Typography gutterBottom component="div">
-                    <Rating name="read-only" value={4.4} readOnly />
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-
-            </Card>
-            <Card sx={{ maxWidth: 545 }}>
-              <CardActionArea>
-                <CardContent>
-                  <Typography gutterBottom component="div">
-                    <Rating name="read-only" value={4.4} readOnly />
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-
-            </Card>
-            <Card sx={{ maxWidth: 545 }}>
-              <CardActionArea>
-                <CardContent>
-                  <Typography gutterBottom component="div">
-                    <Rating name="read-only" value={4.4} readOnly />
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-
-            </Card>
-            <Card sx={{ maxWidth: 545 }}>
-              <CardActionArea>
-                <CardContent>
-                  <Typography gutterBottom component="div">
-                    <Rating name="read-only" value={4.4} readOnly />
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-
-            </Card>
+            <Reviews comments={destination.reviews} />
+          </div>
+          </div>
+          <div className="add-review">
+            <ReviewAdder id={id}/>
           </div>
 
         </div>
