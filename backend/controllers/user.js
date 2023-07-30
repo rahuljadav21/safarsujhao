@@ -22,7 +22,8 @@ module.exports.login = async (req, res, next) => {
 
 module.exports.register = async (req, res, next) => {
     try {
-        const { username, email, mobile, address, password, } = req.body;
+        const { username, firstname, lastname, email, mobile, address, password, } = req.body;
+
         // check if already used.
         const usernameCheck = await User.findOne({ username });
         if (usernameCheck)
@@ -43,8 +44,8 @@ module.exports.register = async (req, res, next) => {
             mobile,
             password: hashedPassword,
             address,
-            tripPlans:[],
-            favouritePlaces:[]
+            tripPlans: [],
+            favouritePlaces: []
         });
 
         delete user.password;
@@ -54,26 +55,26 @@ module.exports.register = async (req, res, next) => {
     }
 };
 
-module.exports.logOut = async(req, res, next) => {
+module.exports.logOut = async (req, res, next) => {
     try {
-        if (!req.params.id) return res.json({ msg: "User id is required " });
-        onlineUsers.delete(req.params.id);
+        if (!req.params.id)
+            return res.json({ msg: "User id is required " });
         return res.status(200).send();
     } catch (ex) {
         next(ex);
     }
 };
 
-module.exports.update = async (req,res,next) => {
+module.exports.update = async (req, res, next) => {
     try {
-        if(!req.params.id) return res.json({ msg: "User id is required "});
-        const {username,firstname,lastname,email,mobile,address,password} = req.body;
+        if (!req.params.id) return res.json({ msg: "User id is required " });
+        const { username, firstname, lastname, email, mobile, address, password } = req.body;
         // encrypt password
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.findByIdAndUpdate(req.params.id,{username,firstname,lastname,email,mobile,address,password:hashedPassword})
+        const user = await User.findByIdAndUpdate(req.params.id, { username, firstname, lastname, email, mobile, address, password: hashedPassword })
         await user.save();
         res.status(200).send(user)
-    } catch (ex){
+    } catch (ex) {
         next(ex);
     }
 }

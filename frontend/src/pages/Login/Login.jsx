@@ -1,24 +1,57 @@
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import { Link as RouteLink, useNavigate } from 'react-router-dom'
+import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Box, Grid, Typography, Container } from '@mui/material'
+
+// MUI Icon
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+
+// redux store
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from './../../redux/features/auth';
+
+// API
+import axios from 'axios';
 
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    const form = event.target;
+    const formData = new FormData(form);
+
+    const jsonData = {};
+    formData.forEach((value, key) => {
+      jsonData[key] = value;
     });
+
+    axios({
+      method: "post",
+      url: "http://localhost:5000/api/auth/login",
+      data: JSON.stringify(jsonData),
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then(function (response) {
+        if (response.data.status === true) {
+          // Login success
+          localStorage.setItem(
+            process.env.REACT_APP_LOCALHOST_KEY,
+            JSON.stringify(response.data.user)
+          );
+          dispatch(loginSuccess());
+          navigate('/')
+        } else {
+          // Login failed
+          alert('Incorrect Username or Password. Please try again.');
+        }
+      })
+      .catch(function (error) {
+        //handle error
+        console.log(error);
+      });
   };
 
   return (
@@ -73,12 +106,12 @@ function Login() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link component={RouteLink} to="/" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link component={RouteLink} to={'/signup'} variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

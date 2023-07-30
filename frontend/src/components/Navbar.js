@@ -1,6 +1,14 @@
 import React from 'react';
-import { Link as RouteLink } from 'react-router-dom'
+import { Link as RouteLink, useNavigate } from 'react-router-dom'
 import NavLink from './NavLink';
+
+// redux store
+import { useSelector, useDispatch } from 'react-redux';
+import { selectIsLoggedIn, logout } from './../redux/features/auth'
+
+// API
+import axios from 'axios';
+import { logoutRoute } from './../utils/APIRoutes'
 
 // components from MUI
 import {
@@ -19,8 +27,7 @@ import {
 // icons from MUI 
 import {
   AccountCircleOutlined as ProfileIcon,
-  SettingsOutlined as SettingIcon,
-  DarkModeOutlined as DarkIcon,
+  DashboardCustomize as DashboardIcon,
   LogoutRounded as LogoutIcon,
 } from '@mui/icons-material';
 
@@ -30,14 +37,9 @@ const pages = [
   { name: 'Contact', path: '/' }
 ];
 
-const settings = [
-  { name: 'Profile', path: '/', icon: ProfileIcon },
-  { name: 'Account', path: '/', icon: SettingIcon },
-  { name: 'Dark Mode', path: '/', icon: DarkIcon },
-  { name: 'Logout', path: '/', icon: LogoutIcon },
-];
-
 const Navbar = () => {
+  const dispatch = useDispatch();
+
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -47,9 +49,32 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-  const isLoggedIn = false;
+  // login
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  // logout
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    const id = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    )._id;
+    axios({
+      method: "GET",
+      url: `${logoutRoute}/${id}`,
+    }).then(response => {
+      if (response.status === 200) {
+        localStorage.clear();
+        dispatch(logout());
+        navigate("/login");
+      }
+    })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   return (
-    <Box sx={{ height: '60px', width: '100%', position: 'fixed', top: 0, zIndex: 1, backgroundColor: 'white', boxShadow: 1 }}>
+    <Box sx={{ height: '60px', width: '100%', position: 'fixed', top: 0, zIndex: 1000, backgroundColor: 'white', boxShadow: 1 }}>
       <Container maxWidth="xl" sx={{ display: 'flex', justifyContent: 'space-between', height: '100%' }}>
         <Box sx={{ display: 'flex' }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -111,11 +136,26 @@ const Navbar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting.name} onClick={handleCloseUserMenu} sx={{ minWidth: '220px', py: 1 }}>
-                    {<setting.icon />}<Typography textAlign="center" sx={{ ml: 1 }}>{setting.name}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem component={RouteLink} to="/" onClick={handleCloseUserMenu} sx={{ minWidth: '220px', py: 1 }}>
+                  <ProfileIcon />
+                  <Typography textAlign="center" sx={{ ml: 1 }}>
+                    Update profile
+                  </Typography>
+                </MenuItem>
+
+                <MenuItem component={RouteLink} to="/" onClick={handleCloseUserMenu} sx={{ minWidth: '220px', py: 1 }}>
+                  <DashboardIcon />
+                  <Typography textAlign="center" sx={{ ml: 1 }}>
+                    Dashboard
+                  </Typography>
+                </MenuItem>
+
+                <MenuItem onClick={handleLogout} sx={{ minWidth: '220px', py: 1 }}>
+                  <LogoutIcon />
+                  <Typography textAlign="center" sx={{ ml: 1 }}>
+                    Logout
+                  </Typography>
+                </MenuItem>
               </Menu>
             </Box>
           )}
