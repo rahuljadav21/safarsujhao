@@ -44,7 +44,7 @@ module.exports.getDestinationById = async (req,res,next) =>{
 
 module.exports.updateDestination = async (req,res,next) =>{
     try {
-       
+       console.log(req.body)
         const destination = await Destination.findByIdAndUpdate(req.params.id,{...req.body});
         if(req.files){
             const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
