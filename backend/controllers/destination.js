@@ -34,7 +34,9 @@ module.exports.getAllDestination = async (req, res, next) => {
 
 module.exports.getDestinationById = async (req, res, next) => {
     try {
-        const destination = await Destination.findById(req.params.id);
+        const destination = await Destination.findById(req.params.id).populate({
+            path: 'reviews'
+        });
         res.status(200).send(destination);
     } catch (error) {
         next(error);

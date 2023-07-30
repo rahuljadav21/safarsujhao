@@ -4,3 +4,4 @@ export const registerRoute = `${host}/api/auth/register`;
 export const logoutRoute = `${host}/api/auth/logout`;
 export const updateRoute = `${host}/api/auth/update/`;
 export const getDestination = `${host}/api/destination/`;
+export const addReviewAPI = `${host}/api/review/`;

@@ -10,9 +10,11 @@ module.exports.addreview = async (req,res,next) =>{
         const review = new Review(req.body.review);
         review.author = req.body.userId;
         let noOfReviews = destination.reviews.length;
-        let newRatings = (noOfReviews*(destination.ratings) + review.rating)/(noOfReviews+1);
+        let r = destination.ratings ? destination.ratings : 0;
+        let newRatings = (noOfReviews*r+ review.rating)/(noOfReviews+1);
         destination.reviews.push(review);
         destination.ratings = newRatings;
+        
         await review.save();
         await destination.save();
         res.status(200).send("review added success fully");

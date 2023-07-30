@@ -36,7 +36,6 @@ function ContactUs() {
                             label="Describe Your Issue"
                             multiline
                             rows={4}
-                            maxRows={4}
                             required
                         />
                         <Button variant="contained"

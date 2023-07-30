@@ -62,3 +62,8 @@
     padding: 2vh;
     background: white;
 }
+
+.comments{
+    display: flex;
+    justify-content: space-around;
+}

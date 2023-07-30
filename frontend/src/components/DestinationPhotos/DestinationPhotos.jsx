@@ -7,10 +7,10 @@ function DestinationPhotos(props) {
     console.log(props)
     const renderPhotos = () =>{
         if(props.images){
-          props.images.map((e)=>{
+          props.images.map((e) => {
             slides.push(
             <swiper-slide>
-                    <img style={{width:"100%",height:"100%",objectFit:"cover"}} src= {e.url} />
+                    <img style={{width:"100%",height:"100%",objectFit:"cover"}} src= {e.url} alt={e.alt} />
             </swiper-slide>
             )
           })
