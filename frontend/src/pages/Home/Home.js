@@ -50,7 +50,7 @@ function Home() {
       >
         <Box className={styles.overlay}>
           <Box className={styles.content}>
-            <Typography variant="h2" color="white">
+            <Typography variant="h2" color="white" sx={{ fontWeight: "bold" }}>
               Travel around the world
             </Typography>
             <Typography color="white" mb={5}>

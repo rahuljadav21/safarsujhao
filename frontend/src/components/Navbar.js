@@ -34,7 +34,6 @@ import {
 
 const pages = [
   { name: 'Home', path: '/' },
-  { name: 'Blog', path: '/' },
   { name: 'Contact', path: '/contact' }
 ];
 
@@ -99,9 +98,10 @@ const Navbar = () => {
                 letterSpacing: '.3rem',
                 color: 'inherit',
                 textDecoration: 'none',
+                textTransform: 'uppercase'
               }}
             >
-              LOGO
+              Safar Sujhao
             </Typography>
           </Box>
 
@@ -126,7 +126,7 @@ const Navbar = () => {
             <Box sx={{ flexGrow: 0, ml: 1 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User Name" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="User Name" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png" />
                 </IconButton>
               </Tooltip>
               <Menu

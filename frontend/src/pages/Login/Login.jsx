@@ -1,5 +1,10 @@
+import React from 'react';
 import { Link as RouteLink, useNavigate } from 'react-router-dom'
-import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Box, Grid, Typography, Container } from '@mui/material'
+import {
+  Paper,
+  Alert,
+  Snackbar, Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Box, Grid, Typography, Container
+} from '@mui/material'
 
 // MUI Icon
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -48,7 +53,7 @@ function Login() {
           navigate('/')
         } else {
           // Login failed
-          alert('Incorrect Username or Password. Please try again.');
+          handleClick('Incorrect Username or Password. Please try again.');
         }
       })
       .catch(function (error) {
@@ -57,25 +62,30 @@ function Login() {
       });
   };
 
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState('');
+
+  const handleClick = (message) => {
+    setOpen(true);
+    setMessage(message);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
+    <Container component="main" maxWidth="xs" sx={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Paper variant="outlined" sx={{ borderRadius: '8px', p: { xs: 2, md: 3 } }}>
+        <Typography component="h1" variant="h4" align="center">
+          Login
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
           <TextField
+            variant="standard"
             margin="normal"
             required
             fullWidth
@@ -86,6 +96,7 @@ function Login() {
             autoFocus
           />
           <TextField
+            variant="standard"
             margin="normal"
             required
             fullWidth
@@ -120,8 +131,13 @@ function Login() {
             </Grid>
           </Grid>
         </Box>
-      </Box>
-    </Container>
+      </Paper>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          {message}
+        </Alert>
+      </Snackbar>
+    </Container >
   );
 }
 
