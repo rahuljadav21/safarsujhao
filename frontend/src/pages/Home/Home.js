@@ -1,11 +1,46 @@
-import React from 'react'
-import { Box, Container, IconButton, Typography } from '@mui/material'
+import React, { useEffect } from 'react'
+import { Box, Container, IconButton, Typography, Autocomplete, TextField } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
-import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
+import LocationIcon from '@mui/icons-material/LocationSearching';
 import styles from './home.module.css'
 import Swiper from '../../components/Swiper';
 
+// React Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { setApiResponse } from './../../redux/features/destination'
+
+// API
+import axios from 'axios';
+import { getDestination } from './../../utils/APIRoutes'
+
 function Home() {
+  const dispatch = useDispatch();
+  const apiResponse = useSelector((state) => state.destination.apiResponse);
+  const uniqueCityList = useSelector((state) => state.destination.uniqueCityList);
+
+  useEffect(() => {
+    axios.get(getDestination)
+      .then(function (response) {
+        const apiResponseData = response.data;
+        setApiResponse(apiResponseData);
+        dispatch(setApiResponse(apiResponseData));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [dispatch]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const searchCity = formData.get('searchCity');
+    console.log(searchCity);
+
+    // Retrieve all destination data for the selected city
+    const destinationSearchData = apiResponse.filter((destination) => destination.city === searchCity);
+    console.log(destinationSearchData);
+  };
   return (
     <>
       <Box style={{
@@ -21,10 +56,28 @@ function Home() {
             <Typography color="white" mb={5}>
               Explore the world, one adventure at a time - Your journey begins here!
             </Typography>
-            <Box className={styles.searchBox}>
-              <LocationSearchingIcon sx={{ mr: 1 }} />
-              <input type='text' placeholder='City, destination' className={styles.searchInput} />
-              <IconButton aria-label="search" sx={{ color: "black" }}>
+            <Box component="form" onSubmit={handleSubmit} className={styles.searchBox}>
+              <LocationIcon sx={{ mr: 1 }} />
+              <Autocomplete
+                fullWidth
+                disablePortal
+                id="combo-box-demo"
+                options={uniqueCityList}
+                renderInput={(params) =>
+                  <TextField
+                    {...params}
+                    placeholder='City'
+                    name='searchCity'
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                          border: 'none', // Hide the outline border
+                        },
+                      },
+                    }} />
+                }
+              />
+              <IconButton type='submit' color="primary" aria-label="add to shopping cart">
                 <SearchIcon />
               </IconButton>
             </Box>
@@ -34,7 +87,6 @@ function Home() {
       <Container className={styles.suggestionBox}>
         <Swiper items={itemData} />
       </Container>
-
     </>
   )
 }

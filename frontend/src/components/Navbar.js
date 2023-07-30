@@ -152,12 +152,6 @@ const Navbar = () => {
                 </MenuItem>
 
                 <Divider />
-                <MenuItem component={RouteLink} to="/update" onClick={handleCloseUserMenu} sx={{ minWidth: '220px', py: 1 }}>
-                  <ProfileIcon />
-                  <Typography textAlign="center" sx={{ ml: 1 }}>
-                    Update profile
-                  </Typography>
-                </MenuItem>
 
                 <MenuItem component={RouteLink} to="/dashboard" onClick={handleCloseUserMenu} sx={{ minWidth: '220px', py: 1 }}>
                   <DashboardIcon />

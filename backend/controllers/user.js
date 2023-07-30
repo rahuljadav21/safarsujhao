@@ -67,15 +67,19 @@ module.exports.logOut = async (req, res, next) => {
 
 module.exports.update = async (req, res, next) => {
     try {
-        if (!req.params.id) return res.json({ msg: "User id is required " });
-        const { username, firstname, lastname, email, mobile, address, password } = req.body;
+        if (!req.params.id) return res.status(400).json({ msg: "User id is required " });
 
-        // encrypt password
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.findByIdAndUpdate(req.params.id, { username, firstname, lastname, email, mobile, address, password: hashedPassword })
-        await user.save();
-        res.status(200).send(user)
+        const { firstname, lastname, email, mobile, address } = req.body;
+
+        const user = await User.findByIdAndUpdate(req.params.id, { firstname, lastname, email, mobile, address }, { new: true });
+
+        if (!user) {
+            return res.status(404).json({ msg: "User not found" });
+        }
+
+        res.status(200).json(user);
     } catch (ex) {
-        next(ex);
+        console.error(ex);
+        res.status(500).json({ msg: "Server error" });
     }
-}
+};

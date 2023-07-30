@@ -4,9 +4,12 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { BiSolidEditAlt } from "react-icons/bi"
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
-import { TextField, Container } from '@mui/material';
+import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
 
 const items = [
   {
@@ -79,14 +82,18 @@ function Dashboard() {
 
   const [disabledVal, setDisabledVal] = useState(true);
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const handleUpdate = (event) => {
     setDisabledVal(!disabledVal);
     event.preventDefault();
-    if(!disabledVal){
+    if (!disabledVal) {
       const form = event.target;
       const formData = new FormData(form);
-  
-      console.log(formData); 
+
+      console.log(formData);
     }
   }
 
@@ -108,7 +115,7 @@ function Dashboard() {
         > <BiSolidEditAlt /> Edit </Button>
       </div>
 
-      <form onSubmit={handleUpdate} component="form"  className='profileInfo'>
+      <form onSubmit={handleUpdate} component="form" className='profileInfo'>
         <div className='personalHeading'>
           <h2> Personal Information </h2>
           {disabledVal ? (
@@ -160,7 +167,10 @@ function Dashboard() {
       </form>
 
       <div className='plannedTrips'>
-        <h2> Your Planned Trips </h2>
+        <div className='plannedTripsHead' >
+          <h2> Your Planned Trips </h2>
+          <Button variant='contained' onClick={handleOpen}> Create Trip </Button>
+        </div>
         <swiper-container class="mySwiper" slides-per-view="4" navigation="true"
           space-between="30" free-mode="true">
           {items.map((item) => {
@@ -210,6 +220,25 @@ function Dashboard() {
       </div>
       <div className='space' ></div>
       <div className='space' ></div>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="createPopup">
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            New Trip
+          </Typography>
+          <TextField required style={{ margin: "15px 0px", width: "46.5vh" }} className="createTripForm" id="tripName" label="Name" variant="outlined" />
+          <Button
+            type='submit'
+            variant='contained'
+          > Create Trip </Button>
+        </Box>
+      </Modal>
+
     </div>
   )
 }

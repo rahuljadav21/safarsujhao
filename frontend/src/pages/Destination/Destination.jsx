@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import "./style.css"
 import { Rating } from '@mui/material'
-import Map, { Source, Layer, ScaleControl } from 'react-map-gl';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea } from '@mui/material';
+import { Button } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -15,7 +12,6 @@ import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { getDestination } from "../../utils/APIRoutes"
-import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import DestinationPhotos from '../../components/DestinationPhotos/DestinationPhotos'
 import Reviews from '../../components/Reviews/Reviews';
@@ -36,14 +32,6 @@ const style = {
   p: 4,
 };
 
-const layerStyle = {
-  id: 'point',
-  type: 'circle',
-  paint: {
-    'circle-radius': 7,
-    'circle-color': 'red'
-  }
-};
 
 function Destination() {
 
@@ -60,7 +48,6 @@ function Destination() {
       .then(data => {
         console.log(data)
         setDestination(data);
-        let coordinates = [];
         setLocation({
           longitude: data.geometry.coordinates[0],
           latitude: data.geometry.coordinates[1]

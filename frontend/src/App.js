@@ -12,7 +12,7 @@ import Destination from './pages/Destination/Destination';
 import Dashboard from './pages/Deshboard/Dashboard';
 import ContactUs from './pages/Contact/ContactUs';
 import PlannedTrip from './pages/PlannedTrip/PlannedTrip';
-import ProfileUpdate from './pages/Deshboard/ProfileUpdate';
+import Search from './pages/Search/Search';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ function App() {
         <Route path="/destination/:id" element={<Destination />} />
         <Route path="/tripplan" element={<PlannedTrip />} />
         <Route path="/contact" element={<ContactUs />} />
-        <Route path="/update" element={<ProfileUpdate />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </BrowserRouter>
   );

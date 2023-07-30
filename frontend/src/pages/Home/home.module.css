@@ -24,28 +24,19 @@
 
 .searchBox {
     height: 50px;
+    padding: 5px 10px;
     width: 460px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     background-color: white;
     border-radius: 8px;
     padding: 5px 20px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.searchInput {
-    flex: 1;
-    height: 100%;
-    font-size: medium;
-    border: none;
-    outline: none;
-}
-
 .suggestionBox {
     height: 100vh;
     width: 100%;
-
     padding-top: 80px;
     padding-bottom: 80px;
 }
