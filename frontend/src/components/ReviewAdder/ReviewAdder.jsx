@@ -25,7 +25,7 @@ function ReviewAdder(props) {
           console.log(res)
        window.location = `/destination/${props.id}`
     }
-    console.log(user)
+
     return (
         <div style={{display:"flex",alignItems:"flex-start",flexDirection:"column"}}>
             <Rating
