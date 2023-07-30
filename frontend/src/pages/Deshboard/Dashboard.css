@@ -57,7 +57,7 @@
 
 .profile .editButton {
     width: 100px;
-    height: 30px;
+    height: 35px;
     border-radius: 8px;
     margin: auto;
     margin-right: 4%;
@@ -79,7 +79,7 @@
 
 .profileInfo .editButton {
     width: 100px;
-    height: 30px;
+    height: 35px;
     border-radius: 8px;
     margin: auto;
     margin-right: 2%;
@@ -89,6 +89,7 @@
     color: #646464;
 }
 
+
 /**************************Planned Trips Swipper***********************/
 
 .plannedTrips h2 {
@@ -97,7 +98,7 @@
     margin: 0% 6% 2%;
 }
 
-.plannedTrips.filterTitle {
+.plannedTrips .filterTitle {
     font-size: larger;
 }
 
@@ -131,15 +132,15 @@
 
 .plannedTrips .cardContent {
     height: 60px;
-    padding: 2%;
     background-color: white;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    padding: 2%;
+
 }
 
 .plannedTrips .placeName {
     font-size: larger;
     font-weight: 700;
-    padding-left: 8%;
 }
 
 .plannedTrips .placeAddress {
@@ -189,15 +190,14 @@
 
 .Favorites .cardContent {
     height: 60px;
-    padding: 2%;
     background-color: white;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    padding: 2%;
 }
 
 .Favorites .placeName {
     font-size: larger;
     font-weight: 700;
-    padding-left: 8%;
 }
 
 .Favorites .placeAddress {

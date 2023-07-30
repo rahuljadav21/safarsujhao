@@ -3,6 +3,9 @@ import "./Dashboard.css";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { BiSolidEditAlt } from "react-icons/bi"
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { useState } from 'react';
 
 const items = [
   {
@@ -53,10 +56,12 @@ const items = [
 ];
 
 const user = {
-  name: "Preyansh",
+  username: "Batman2000",
+  firstname: "Bruce",
+  lastname: "Wayne",
   mobile: "1234567890",
   email: "email@xyz.com",
-  city: "Gotham",
+  address: "Gotham",
   country: "India",
   img: 'https://images.unsplash.com/photo-1531259683007-016a7b628fc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80',
 }
@@ -65,48 +70,83 @@ const user = {
 
 function Dashboard() {
 
+  const [disabledVal, setDisabledVal] = useState(true);
+
   return (
     <div className='dashboard'>
       <div className='space' ></div>
-      <h1 className='Heading'> Hello, {user.name}! </h1>
+      <h1 className='Heading'> Hello, {user.firstname}! </h1>
       <div className='profile'>
         <div className='profileImage'>
           <img src={user.img} alt="User Profile pic" />
         </div>
         <div className='profileData' >
-          <h3>{user.name}</h3>
-          <p> {user.city}, {user.country} </p>
+          <h3>{user.username}</h3>
+          <p> {user.address}, {user.country} </p>
         </div>
-        <button className='editButton'> <BiSolidEditAlt /> Edit </button>
+        <Button
+          variant='contained'
+          className='editButton'
+        > <BiSolidEditAlt /> Edit </Button>
       </div>
 
       <div className='profileInfo'>
         <div className='personalHeading'>
           <h2> Personal Information </h2>
-          <button className='editButton'> <BiSolidEditAlt /> Edit </button>
+          <Button
+            variant='contained'
+            className='editButton'
+            onClick={() => setDisabledVal(!disabledVal)}
+          > <BiSolidEditAlt /> Edit </Button>
         </div>
         <div className='info'>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
               <Grid item xs={6}>
-                <h3> Name </h3>
-                <p>{user.name}</p>
+                <h3>First Name</h3>
+                <TextField variant='standard' className='profileFields'
+                  InputProps={{ disableUnderline: true }}
+                  defaultValue={user.firstname}
+                  disabled={disabledVal}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <h3>Last Name</h3>
+                <TextField variant='standard' className='profileFields'
+                  InputProps={{ disableUnderline: true }}
+                  defaultValue={user.lastname}
+                  disabled={disabledVal}
+                />
               </Grid>
               <Grid item xs={6}>
                 <h3>Contact number</h3>
-                <p>{user.mobile}</p>
+                <TextField variant='standard' className='profileFields'
+                  InputProps={{ disableUnderline: true }}
+                  defaultValue={user.mobile}
+                  disabled={disabledVal}
+                />
               </Grid>
               <Grid item xs={6}>
                 <h3>Email address</h3>
-                <p>{user.email}</p>
+                <TextField variant='standard' className='profileFields'
+                  InputProps={{ disableUnderline: true }}
+                  defaultValue={user.email}
+                  disabled={disabledVal}
+                />
               </Grid>
               <Grid item xs={6}>
                 <h3>Your City</h3>
-                <p>{user.city}</p>
+                <TextField variant='standard' className='profileFields'
+                  InputProps={{ disableUnderline: true }}
+                  defaultValue={user.address}
+                  multiline
+                  maxRows={4}
+                  disabled={disabledVal}
+                />
               </Grid>
               <Grid item xs={6}>
                 <h3>Country</h3>
-                <p>{user.country}</p>
+                <p>India</p>
               </Grid>
             </Grid>
           </Box>
