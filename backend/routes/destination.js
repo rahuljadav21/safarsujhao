@@ -1,4 +1,4 @@
-const {createDestination,getDestinationById,getAllDestination,updateDestination,deleteDestination} = require("../controllers/destination")
+const {createDestination,getDestinationById,getAllDestination,removeFromFavoritePlaces,updateDestination,deleteDestination,addToFavoritePlaces} = require("../controllers/destination")
 const router = require("express").Router();
 
 const multer = require('multer');
@@ -10,6 +10,7 @@ router.put("/update/:id",updateDestination);
 router.get("/:id", getDestinationById);
 router.get("/",getAllDestination);
 router.delete("/:id", deleteDestination);
-
+router.put("/addToFav/:id",addToFavoritePlaces);
+router.put("/removeFav/:id",removeFromFavoritePlaces);
 
 module.exports = router;

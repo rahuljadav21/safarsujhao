@@ -1,28 +1,75 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import { Link as NavLink } from 'react-router-dom'
+
+// MUI component
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  IconButton,
+  Input,
+  InputLabel,
+  InputAdornment,
+  FormControl,
+} from '@mui/material';
+
+// MUI Icon
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+// API
+import axios from 'axios';
+
+const fromField = [
+  { name: "User ID", type: "text", linkid: "username" },
+  { name: "First Name", type: "text", linkid: "firstname" },
+  { name: "Last Name", type: "text", linkid: "lastname" },
+  { name: "Email Address", type: "email", linkid: "email" },
+  { name: "Mobile Number", type: "text", linkid: "mobile" },
+  { name: "Address", type: "text", linkid: "address" },
+];
 
 function Signup() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('userName'),
-      email: data.get('email'),
-      mobile: data.get('mobile'),
-      password: data.get('password'),
+  const [showPassword, setShowPassword] = React.useState(false);
 
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    const jsonData = {};
+    formData.forEach((value, key) => {
+      jsonData[key] = value;
     });
+
+    axios({
+      method: "post",
+      url: "http://localhost:5000/api/auth/register",
+      data: JSON.stringify(jsonData),
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+      })
+      .catch(function (error) {
+        //handle error
+        console.log(error);
+      });
   };
 
   return (
@@ -44,62 +91,48 @@ function Signup() {
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
+
+            {fromField.map((item) => {
+              return (
+                <Grid item xs={12} key={item.linkid}>
+                  <TextField
+                    variant="standard"
+                    name={item.linkid}
+                    required
+                    fullWidth
+                    id={item.linkid}
+                    label={item.name}
+                    autoFocus
+                  />
+                </Grid>
+              )
+            })}
+
             <Grid item xs={12}>
-              <TextField
-                autoComplete="given-name"
-                name="userName"
-                required
-                fullWidth
-                id="userName"
-                label="User Name"
-                autoFocus
-              />
+              <FormControl fullWidth variant="standard">
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <Input
+                  id="password"
+                  name='password'
+                  type={showPassword ? 'text' : 'password'}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="mobile"
-                label="Mobile Number"
-                name="mobile"
-                autoComplete="contact number"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="address"
-                label="Address"
-                name="address"
-                autoComplete="address"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-              />
-            </Grid>
+
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                label="I want to receive inspiration, marketing promotions, and updates via email."
               />
             </Grid>
           </Grid>
@@ -113,7 +146,7 @@ function Signup() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link component={NavLink} to="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -121,8 +154,7 @@ function Signup() {
         </Box>
       </Box>
     </Container>
-
-  )
+  );
 }
 
-export default Signup
+export default Signup;

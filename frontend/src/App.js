@@ -9,6 +9,7 @@ import ContactUs from "./pages/Contact/ContactUs";
 
 // import global components
 import Navbar from "./components/Navbar"
+import PlannedTrip from "./pages/PlannedTrip/PlannedTrip";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/destination" element={<Destination />} />
+        <Route path="/tripplan" element={<PlannedTrip />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/contact" element={<ContactUs />} />
       </Routes>
