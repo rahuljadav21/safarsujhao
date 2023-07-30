@@ -10,7 +10,7 @@ router.put("/update/:id",updateDestination);
 router.get("/:id", getDestinationById);
 router.get("/",getAllDestination);
 router.delete("/:id", deleteDestination);
-router.put("/addToFav/:id",addToFavoritePlaces);
-router.put("/removeFav/:id",removeFromFavoritePlaces);
+router.put("/addtofav/:id",addToFavoritePlaces);
+router.put("/removefav/:id",removeFromFavoritePlaces);
 
 module.exports = router;
