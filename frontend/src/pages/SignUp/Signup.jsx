@@ -28,6 +28,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 // API
 import axios from 'axios';
+import { registerRoute } from './../../utils/APIRoutes'
 
 const fromField = [
   { name: "User ID", type: "text", linkid: "username" },
@@ -55,7 +56,7 @@ function Signup() {
 
     axios({
       method: "post",
-      url: "http://localhost:5000/api/auth/register",
+      url: `${registerRoute}`,
       data: JSON.stringify(jsonData),
       headers: {
         "Content-Type": "application/json",

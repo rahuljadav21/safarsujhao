@@ -4,7 +4,7 @@ import NavLink from './NavLink';
 
 // redux store
 import { useSelector, useDispatch } from 'react-redux';
-import { selectIsLoggedIn, logout } from './../redux/features/auth'
+import { selectUser, selectIsLoggedIn, logout } from './../redux/features/auth'
 
 // API
 import axios from 'axios';
@@ -22,9 +22,10 @@ import {
   MenuItem,
   Typography,
   Link,
+  Divider
 } from '@mui/material';
 
-// icons from MUI 
+// icons from MUI console.log(user)
 import {
   AccountCircleOutlined as ProfileIcon,
   DashboardCustomize as DashboardIcon,
@@ -39,18 +40,26 @@ const pages = [
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const username = user?.username ?? "gust";
 
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+    if (event.currentTarget instanceof Element) {
+      setAnchorElUser(event.currentTarget);
+    }
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
-  // login
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const handleLogoutAndCloseUserMenu = () => {
+    // Call both functions
+    handleLogout();
+    handleCloseUserMenu();
+  };
 
   // logout
   const navigate = useNavigate();
@@ -121,7 +130,7 @@ const Navbar = () => {
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: '45px' }}
+                sx={{ mt: '45px', p: '10px' }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -136,21 +145,28 @@ const Navbar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem component={RouteLink} to="/" onClick={handleCloseUserMenu} sx={{ minWidth: '220px', py: 1 }}>
+                <MenuItem sx={{ minWidth: '220px', py: 1 }}>
+                  <Typography textAlign="center" sx={{ ml: 1 }}>
+                    {username}
+                  </Typography>
+                </MenuItem>
+
+                <Divider />
+                <MenuItem component={RouteLink} to="/update" onClick={handleCloseUserMenu} sx={{ minWidth: '220px', py: 1 }}>
                   <ProfileIcon />
                   <Typography textAlign="center" sx={{ ml: 1 }}>
                     Update profile
                   </Typography>
                 </MenuItem>
 
-                <MenuItem component={RouteLink} to="/" onClick={handleCloseUserMenu} sx={{ minWidth: '220px', py: 1 }}>
+                <MenuItem component={RouteLink} to="/dashboard" onClick={handleCloseUserMenu} sx={{ minWidth: '220px', py: 1 }}>
                   <DashboardIcon />
                   <Typography textAlign="center" sx={{ ml: 1 }}>
                     Dashboard
                   </Typography>
                 </MenuItem>
 
-                <MenuItem onClick={handleLogout} sx={{ minWidth: '220px', py: 1 }}>
+                <MenuItem onClick={handleLogoutAndCloseUserMenu} sx={{ minWidth: '220px', py: 1 }}>
                   <LogoutIcon />
                   <Typography textAlign="center" sx={{ ml: 1 }}>
                     Logout
