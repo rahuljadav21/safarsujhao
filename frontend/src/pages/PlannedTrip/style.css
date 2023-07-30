@@ -1,0 +1,62 @@
+.trip-info-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 15vh;
+    padding: 5vh;
+    align-items: center;
+}
+
+.destinations{
+    margin-right: 8vh;
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.container{
+    margin-top: 6vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.btn{
+    margin-top: 3vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tourist{
+    padding: 0vh 10vh;
+}
+
+.trip-detail{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.trip-details{
+    display: flex;
+
+}
+
+.detail{
+    font-size: initial;
+    margin: 2vh;
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    font-style: inherit;
+}
+
+.map-container{
+    border: 2px solid grey;
+}

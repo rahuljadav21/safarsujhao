@@ -1,0 +1,64 @@
+.info-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5vh 5vh;
+    justify-content: space-between;
+    align-content: center;
+}
+
+
+.detail{
+    margin: 3px;
+    font-size: larger;
+    background: white;
+    padding: 6px;
+    border-radius: 5px;
+    font-style: inherit;
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-map{
+    margin: 0vh 4vh;
+    border: 2px solid grey;
+}
+
+.review-container{
+    margin: 10vh 0vh;
+}
+
+.review-title{
+    font-size: x-large;
+    font-style: inherit;
+    margin: 1vh 0vh;
+    padding: 2vh;
+    background: white;
+}
+
+.review-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn{
+    margin-top: 3vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.review-title{
+    font-size: x-large;
+    font-style: inherit;
+    margin: 1vh 0vh;
+    border-radius: 10px;
+    padding: 2vh;
+    background: white;
+}

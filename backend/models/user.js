@@ -1,4 +1,11 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+const ImageSchema = new mongoose.Schema({
+  url: String,
+  filename: String
+});
+
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -26,6 +33,9 @@ const userSchema = new mongoose.Schema({
     unique: true,
     max: 50,
   },
+  profilePicture: {
+    type:ImageSchema
+  },
   mobile: {
     type: String,
     require: false,
@@ -43,7 +53,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     min: 8,
-  }
+  },
+  tripPlans:[{
+    type: Schema.Types.ObjectId,
+      ref: 'TripPlan'
+  }]
+  ,
+  favouritePlaces:[
+    { 
+      type: Schema.Types.ObjectId,
+      ref: 'Destination'
+    }
+  ]
 });
 
 module.exports = mongoose.model("User", userSchema);

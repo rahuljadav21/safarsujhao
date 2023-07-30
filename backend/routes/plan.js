@@ -1,4 +1,4 @@
-const {getMyTripPlans,removeDestinationFromPlan,createTripPlan,getTripPlan,addDestinationToPlan,addTourist, deleteTripPlan} = require("../controllers/destination")
+const {getMyTripPlans,removeDestinationFromPlan,createTripPlan,getTripPlan,addDestinationToPlan,addTourist, deleteTripPlan} = require("../controllers/plan")
 const router = require("express").Router();
 
 const multer = require('multer');
