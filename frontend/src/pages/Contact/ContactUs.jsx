@@ -7,12 +7,12 @@ import Button from '@mui/material/Button';
 function ContactUs() {
     return (
         <Box sx={{
-            backgroundImage: `url(${process.env.PUBLIC_URL + 'images/formImage.jpeg'})`,
-
+            backgroundImage: `url(${process.env.PUBLIC_URL + 'images/formImage.jpeg'})`
         }}
             className="formBackground"
         >
             <div className='mainForm'>
+                <div className='space'></div>
                 <div className='formHead'>
                     <h1 className='formHeading'> Get in Touch </h1>
                     <p> We will answer your issues shorlty </p>
@@ -36,6 +36,7 @@ function ContactUs() {
                         label="Describe Your Issue"
                         multiline
                         rows={4}
+                        maxRows={4}
                         required
                     />
                     <Button variant="contained"

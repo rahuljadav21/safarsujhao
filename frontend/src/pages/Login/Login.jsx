@@ -10,6 +10,7 @@ import { loginSuccess } from './../../redux/features/auth';
 
 // API
 import axios from 'axios';
+import { loginRoute } from "./../../utils/APIRoutes"
 
 function Login() {
   const dispatch = useDispatch();
@@ -25,9 +26,10 @@ function Login() {
       jsonData[key] = value;
     });
 
+    // login api call
     axios({
       method: "post",
-      url: "http://localhost:5000/api/auth/login",
+      url: `${loginRoute}`,
       data: JSON.stringify(jsonData),
       headers: {
         "Content-Type": "application/json",
@@ -37,11 +39,12 @@ function Login() {
       .then(function (response) {
         if (response.data.status === true) {
           // Login success
-          localStorage.setItem(
+          const userData = localStorage.setItem(
             process.env.REACT_APP_LOCALHOST_KEY,
             JSON.stringify(response.data.user)
           );
-          dispatch(loginSuccess());
+
+          dispatch(loginSuccess(userData));
           navigate('/')
         } else {
           // Login failed

@@ -1,23 +1,19 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import Navbar from '../../components/Navbar'
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import Map, { Source, Layer, ScaleControl, Marker } from 'react-map-gl';
+import Map, { Source, Layer, ScaleControl } from 'react-map-gl';
 import "./style.css";
 import Modal from '@mui/material/Modal';
 import WhereToVoteIcon from '@mui/icons-material/WhereToVote';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import { Button} from '@mui/material';
+import { Button } from '@mui/material';
 
 const geojson = {
   type: 'FeatureCollection',
@@ -54,71 +50,71 @@ function PlannedTrip() {
 
   return (
     <>
-    <Navbar />
-    <div className="main-container">
-      <div className="trip-info-container">
-        <div className="destinations">
-        <h2>Travel Destinations</h2>
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <WhereToVoteIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dwarka" />
-              <ListItemIcon style={{marginLeft:"7vh"}}>
-                <RemoveCircleIcon onClick={handleOpen}  />
-              </ListItemIcon>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <WhereToVoteIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dwarka" />
-              <ListItemIcon>
-                <RemoveCircleIcon onClick={handleOpen}  />
-              </ListItemIcon>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <WhereToVoteIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dwarka" />
-              <ListItemIcon>
-                <RemoveCircleIcon onClick={handleOpen}  />
-              </ListItemIcon>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <WhereToVoteIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dwarka" />
-              <ListItemIcon>
-                <RemoveCircleIcon onClick={handleOpen}  />
-              </ListItemIcon>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <WhereToVoteIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dwarka" />
-              <ListItemIcon>
-                <RemoveCircleIcon onClick={handleOpen}  />
-              </ListItemIcon>
-            </ListItemButton>
-          </ListItem>
-        </List> 
-        </div>
-        <div className="map-container">
-        <Map
+      <Navbar />
+      <div className="main-container">
+        <div className="trip-info-container">
+          <div className="destinations">
+            <h2>Travel Destinations</h2>
+            <List>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <WhereToVoteIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dwarka" />
+                  <ListItemIcon style={{ marginLeft: "7vh" }}>
+                    <RemoveCircleIcon onClick={handleOpen} />
+                  </ListItemIcon>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <WhereToVoteIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dwarka" />
+                  <ListItemIcon>
+                    <RemoveCircleIcon onClick={handleOpen} />
+                  </ListItemIcon>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <WhereToVoteIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dwarka" />
+                  <ListItemIcon>
+                    <RemoveCircleIcon onClick={handleOpen} />
+                  </ListItemIcon>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <WhereToVoteIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dwarka" />
+                  <ListItemIcon>
+                    <RemoveCircleIcon onClick={handleOpen} />
+                  </ListItemIcon>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <WhereToVoteIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dwarka" />
+                  <ListItemIcon>
+                    <RemoveCircleIcon onClick={handleOpen} />
+                  </ListItemIcon>
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </div>
+          <div className="map-container">
+            <Map
               mapboxAccessToken="pk.eyJ1IjoicmFodWxqYWRhdjIxIiwiYSI6ImNsa210bmM2dDA0eHEzam9jZ3Rhd3Q2dm4ifQ.0Xs1A6kwST_uscYEYBwZkA"
               initialViewState={{
                 longitude: 77.6809111,
@@ -133,105 +129,105 @@ function PlannedTrip() {
               </Source>
               <ScaleControl />
             </Map>
+          </div>
         </div>
-      </div>
-      <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  Remove Destination
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  Do you want to Remove this destination from Plan ?
-                  <div className="btn">
-                  <Button variant="contained" onClick={handleClose}> Cancle</Button>
-                  <Button variant="contained" onClick={handleClose}> Remove</Button>
-                  </div>
-                  
-                </Typography>
-              </Box>
-            </Modal>
-      <div className="container">
-        <div className="tourists">
-          <h2>Tourists</h2>
-          <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <PersonPinIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dwarka" />
-              <ListItemIcon style={{marginLeft:"7vh"}}>
-                <RemoveCircleIcon onClick={handleOpen}  />
-              </ListItemIcon>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <PersonPinIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dwarka" />
-              <ListItemIcon>
-                <RemoveCircleIcon onClick={handleOpen}  />
-              </ListItemIcon>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <PersonPinIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dwarka" />
-              <ListItemIcon>
-                <RemoveCircleIcon onClick={handleOpen}  />
-              </ListItemIcon>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <PersonPinIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dwarka" />
-              <ListItemIcon>
-                <RemoveCircleIcon onClick={handleOpen}  />
-              </ListItemIcon>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <PersonPinIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dwarka" />
-              <ListItemIcon>
-                <RemoveCircleIcon onClick={handleOpen}  />
-              </ListItemIcon>
-            </ListItemButton>
-          </ListItem>
-        </List> 
-        </div>
-        <div className="trip-details">
-              <div className="detail">
-                <h1>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Remove Destination
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Do you want to Remove this destination from Plan ?
+              <div className="btn">
+                <Button variant="contained" onClick={handleClose}> Cancle</Button>
+                <Button variant="contained" onClick={handleClose}> Remove</Button>
+              </div>
+
+            </Typography>
+          </Box>
+        </Modal>
+        <div className="container">
+          <div className="tourists">
+            <h2>Tourists</h2>
+            <List>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <PersonPinIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dwarka" />
+                  <ListItemIcon style={{ marginLeft: "7vh" }}>
+                    <RemoveCircleIcon onClick={handleOpen} />
+                  </ListItemIcon>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <PersonPinIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dwarka" />
+                  <ListItemIcon>
+                    <RemoveCircleIcon onClick={handleOpen} />
+                  </ListItemIcon>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <PersonPinIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dwarka" />
+                  <ListItemIcon>
+                    <RemoveCircleIcon onClick={handleOpen} />
+                  </ListItemIcon>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <PersonPinIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dwarka" />
+                  <ListItemIcon>
+                    <RemoveCircleIcon onClick={handleOpen} />
+                  </ListItemIcon>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <PersonPinIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dwarka" />
+                  <ListItemIcon>
+                    <RemoveCircleIcon onClick={handleOpen} />
+                  </ListItemIcon>
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </div>
+          <div className="trip-details">
+            <div className="detail">
+              <h1>
                 2000 INRs
-                </h1>
-                
-              </div>
-              <div className="detail">
-                <h1>
+              </h1>
+
+            </div>
+            <div className="detail">
+              <h1>
                 2 Night 3 Days
-                </h1>
-                
-              </div>
+              </h1>
+
+            </div>
+          </div>
         </div>
       </div>
-    </div>
     </>
   )
 }

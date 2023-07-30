@@ -3,11 +3,11 @@ import Navbar from '../../components/Navbar'
 import "./swipper.css"
 import "./style.css"
 import { Rating } from '@mui/material'
-import Map, { Source, Layer, ScaleControl, Marker } from 'react-map-gl';
+import Map, { Source, Layer, ScaleControl } from 'react-map-gl';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActionArea } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
