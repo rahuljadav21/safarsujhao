@@ -1,28 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const airportSchma = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    distance: {
-        type: Number,
-        required: true
-    }
-})
-
-const railwayStationSchma = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    distance: {
-        type: Number,
-        required: true
-    }
-})
-
 const ImageSchema = new mongoose.Schema({
     url: String,
     filename: String
@@ -54,11 +32,15 @@ const destinationSchema = new mongoose.Schema({
     min: 3,
     max: 20,
   },
-  airport: {
-    type: airportSchma
+  nearestAirport: {
+    type:String,
+    min:4,
+    max:40
   },
-  railwayStation: {
-    type: railwayStationSchma
+  nearestRailwayStation: {
+    type:String,
+    min:4,
+    max:40
   },
   timeToExplore: {
     type: Number,
@@ -91,7 +73,6 @@ const destinationSchema = new mongoose.Schema({
     ],
   ratings:{
     type: Number,
-    default:0,
     min:1,
     max:5
   }

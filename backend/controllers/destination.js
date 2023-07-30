@@ -44,7 +44,7 @@ module.exports.getDestinationById = async (req,res,next) =>{
 
 module.exports.updateDestination = async (req,res,next) =>{
     try {
-       
+       console.log(req.body)
         const destination = await Destination.findByIdAndUpdate(req.params.id,{...req.body});
         if(req.files){
             const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
@@ -79,9 +79,13 @@ module.exports.addToFavoritePlaces = async(req,res,next) =>{
     try {
         const currentUser = await user.findById(req.body.userId);
         const destination = await Destination.findById(req.params.id);
-        currentUser.favouritePlaces.push(destination);
-        await currentUser.save();
-        res.status(200).send("Destination Added To favorite Places Successfully")
+        if(destination){
+            currentUser.favouritePlaces.push(destination);
+            await currentUser.save();
+            res.status(200).send("Destination Added To favorite Places Successfully")
+        }else{
+            res.status(200).send("Destination does not exists")
+        }       
     } catch (error) {
         next(error)
     }
