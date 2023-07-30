@@ -69,6 +69,7 @@ module.exports.update = async (req, res, next) => {
     try {
         if (!req.params.id) return res.json({ msg: "User id is required " });
         const { username, firstname, lastname, email, mobile, address, password } = req.body;
+
         // encrypt password
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.findByIdAndUpdate(req.params.id, { username, firstname, lastname, email, mobile, address, password: hashedPassword })
