@@ -34,8 +34,8 @@ app.get('/', (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/destination", destinationRoutes);
-app.use("/api/review",reviewRoutes);
-app.use("/api/plan",planRoutes);
+app.use("/api/review", reviewRoutes);
+app.use("/api/plan", planRoutes);
 
 app.listen(port, () =>
     console.log(`Server started on ${port}.`)
