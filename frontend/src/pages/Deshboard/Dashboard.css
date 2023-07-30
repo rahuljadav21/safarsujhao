@@ -2,37 +2,205 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.plannedTrips {
-    display: flex;
-    justify-content: left;
-    margin: auto;
-    width: 90%;
-    overflow-x: auto;
+.dashboard {
+    background-color: #d1d0d0;
 }
 
-::-webkit-scrollbar {
-    display: none;
-}
-
-.Card {
-    width: 350px;
-    max-width: 350px;
-    border-radius: 2rem;
-    margin: 20px;
-    display: block;
+.space {
+    padding-top: 20px;
 }
 
 .Heading {
-    margin-top: 70px;
+    margin-top: 60px;
     margin-bottom: 30px;
     margin-left: 6%;
+    margin-right: 6%;
     display: flex;
     justify-content: left;
+
+    background-color: white;
+    padding: 2%;
+    border-radius: 8px;
 }
 
-h2 {
+/****************************Profile******************************/
+
+.profile {
+    display: flex;
+    margin-bottom: 2.5rem;
+    background-color: white;
+    margin: 0% 6%;
+    padding: 3% 0%;
+    border-radius: 8px;
+}
+
+.profileImage {
     display: flex;
     justify-content: left;
     margin-left: 6%;
 }
 
+.profileData{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin: auto 10%;
+    font-size: x-large;
+}
+
+.profileImage img {
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.profile .editButton {
+    width: 100px;
+    height: 30px;
+    border-radius: 8px;
+    margin: auto;
+    margin-right: 4%;
+}
+
+/************************Personal Info****************************/
+
+.profileInfo {
+    background-color: white;
+    margin: 2% 6%;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+.personalHeading {
+    display: flex;
+    justify-content: left;
+    margin-bottom: 20px;
+}
+
+.profileInfo .editButton {
+    width: 100px;
+    height: 30px;
+    border-radius: 8px;
+    margin: auto;
+    margin-right: 2%;
+}
+
+.profileInfo h3 {
+    color: #646464;
+}
+
+/**************************Planned Trips Swipper***********************/
+
+.plannedTrips h2 {
+    display: flex;
+    justify-content: left;
+    margin: 0% 6% 2%;
+}
+
+.plannedTrips.filterTitle {
+    font-size: larger;
+}
+
+.plannedTrips swiper-container {
+    width: 88%;
+    height: 310px;
+    margin: auto;
+}
+
+.plannedTrips swiper-slide {
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.plannedTrips swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.plannedTrips .placeImage {
+    height: 240px;
+    border-radius: 8px 8px 0px 0px;
+    overflow: hidden;
+}
+
+.plannedTrips .cardContent {
+    height: 60px;
+    padding: 2%;
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.plannedTrips .placeName {
+    font-size: larger;
+    font-weight: 700;
+    padding-left: 8%;
+}
+
+.plannedTrips .placeAddress {
+    color: #676767;
+    padding-left: 8%
+}
+
+/****************************Fovarites Swipper**************************/
+
+.Favorites h2 {
+    display: flex;
+    justify-content: left;
+    margin: 0% 6% 2%;
+}
+
+.Favorites .filterTitle {
+    font-size: larger;
+}
+
+.Favorites swiper-container {
+    width: 88%;
+    height: 310px;
+    margin: auto;
+}
+
+.Favorites swiper-slide {
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.Favorites swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.Favorites .placeImage {
+    height: 240px;
+    border-radius: 8px 8px 0px 0px;
+    overflow: hidden;
+}
+
+.Favorites .cardContent {
+    height: 60px;
+    padding: 2%;
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.Favorites .placeName {
+    font-size: larger;
+    font-weight: 700;
+    padding-left: 8%;
+}
+
+.Favorites .placeAddress {
+    color: #676767;
+    padding-left: 8%
+}

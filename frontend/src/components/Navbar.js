@@ -27,7 +27,7 @@ import {
 const pages = [
   { name: 'Home', path: '/' },
   { name: 'Blog', path: '/' },
-  { name: 'Contact', path: '/' }
+  { name: 'Contact', path: '/contact' }
 ];
 
 const settings = [

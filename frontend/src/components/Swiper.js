@@ -14,7 +14,7 @@ const Swiper = ({ items }) => {
                     return (
                         <swiper-slide key={item.title} lazy="true">
                             <div className='placeImage'>
-                                <img loading="lazy" src={item.img} style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
+                                <img loading="lazy" src={item.img} alt={item.title} style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
                             </div>
                             <div className='cardContent'>
                                 <div className='placeName'>

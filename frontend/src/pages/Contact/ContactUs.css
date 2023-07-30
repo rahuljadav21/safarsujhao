@@ -1,0 +1,49 @@
+.mainForm .space {
+    padding-top: 20px;
+    margin-bottom: 80px;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+.formHead {
+    background-color: white;
+    width: 60vh;
+    margin: auto;
+    padding: 20px 5vh 20px;
+    border-radius: 8px 8px 0px 0px;
+}
+
+/************************Form**************************/
+.alert {
+    position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+  }
+
+.formBackground {
+    width: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.Form {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    align-items: center;
+    width: 60vh;
+    margin: auto;
+    margin-bottom: 20%;
+    padding-bottom: 4vh;
+
+    border-radius: 0px 0px 8px 8px;
+}
+
+
