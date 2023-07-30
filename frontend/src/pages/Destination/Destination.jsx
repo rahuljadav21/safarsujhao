@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
-import "./swipper.css"
 import "./style.css"
 import { Rating } from '@mui/material'
 import Map, { Source, Layer, ScaleControl } from 'react-map-gl';
@@ -15,6 +14,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import {getDestination} from "../../utils/APIRoutes"
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
+import DestinationPhotos from '../../components/DestinationPhotos/DestinationPhotos'
+
 
 const style = {
   position: 'absolute',
@@ -45,45 +49,53 @@ const layerStyle = {
 };
 
 function Destination() {
+
+  const {id} = useParams();
+  const [destination,setDestination] = useState({});
+
+  useEffect(() => {
+    const loadData = async()=>{
+      const res = await axios.get(getDestination + id);
+      setDestination(res.data);  
+    }
+    loadData()
+  }, [id])
+
+  console.log(destination)
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  console.log(destination)
+  
 
   return (
     <>
       <Navbar />
       <div className='main-container'>
-        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" space-between="30"
-          centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">
-          <swiper-slide>Slide 1</swiper-slide>
-          <swiper-slide>Slide 2</swiper-slide>
-          <swiper-slide>Slide 3</swiper-slide>
-          <swiper-slide>Slide 4</swiper-slide>
-
-        </swiper-container>
+        <DestinationPhotos images = {destination.photos} />
 
         <div className='info-container'>
           <div className='info'>
             <div className="detail">
-              Name : Saputara
+              Name : {destination.name}
             </div>
             <div className="detail">
               Description : Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate itaque praesentium ipsum odit laboriosam vel vitae quos assumenda, fuga dicta quia enim quam iste expedita aut doloremque ratione aperiam perspiciatis!
             </div>
             <div className="detail">
-              Ratings : <Rating name="read-only" value={4.4} readOnly />
+              Ratings : { destination.ratings ? <Rating name="read-only" value={destination.ratings} readOnly /> : 'No Ratings Available'} 
             </div>
             <div className="detail">
-              location : Saputara, Dang, Gujarat, India
+              location : {destination.city + " " +destination.state+ " "+ destination.country} 
             </div>
             <div className="detail">
-              NearBy Airport : Surat, 170 km away
+              NearBy Airport : {destination.nearestAirport}
             </div>
             <div className="detail">
-              NearBy Railway Station : Valsad, 120 km away
+              NearBy Railway Station : {destination.nearestRailwayStation}
             </div>
             <div className="detail">
-              Best time to Visit : Moonsoon
+              Best time to Visit : {destination.bestTimeToVisit ? destination.bestTimeToVisit : "Anytime" }
             </div>
             <div className="btn">
               <Button variant="contained"> Add to Favourite </Button>
