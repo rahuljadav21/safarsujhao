@@ -3,7 +3,8 @@ import "./Dashboard.css";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { BiSolidEditAlt } from "react-icons/bi"
-import TextField from '@mui/material/TextField';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+import { TextField, Container } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 
@@ -66,11 +67,28 @@ const user = {
   img: 'https://images.unsplash.com/photo-1531259683007-016a7b628fc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80',
 }
 
-
+const fromField = [
+  { name: "First Name", type: "text", linkid: "firstname" },
+  { name: "Last Name", type: "text", linkid: "lastname" },
+  { name: "Email Address", type: "email", linkid: "email" },
+  { name: "Mobile Number", type: "text", linkid: "mobile" },
+  { name: "Address", type: "text", linkid: "address" },
+];
 
 function Dashboard() {
 
   const [disabledVal, setDisabledVal] = useState(true);
+
+  const handleUpdate = (event) => {
+    setDisabledVal(!disabledVal);
+    event.preventDefault();
+    if(!disabledVal){
+      const form = event.target;
+      const formData = new FormData(form);
+  
+      console.log(formData); 
+    }
+  }
 
   return (
     <div className='dashboard'>
@@ -90,60 +108,48 @@ function Dashboard() {
         > <BiSolidEditAlt /> Edit </Button>
       </div>
 
-      <div className='profileInfo'>
+      <form onSubmit={handleUpdate} component="form"  className='profileInfo'>
         <div className='personalHeading'>
           <h2> Personal Information </h2>
-          <Button
-            variant='contained'
-            className='editButton'
-            onClick={() => setDisabledVal(!disabledVal)}
-          > <BiSolidEditAlt /> Edit </Button>
+          {disabledVal ? (
+            <Button
+              type='submit'
+              variant='contained'
+              className='editButton'
+            > <BiSolidEditAlt /> Edit </Button>
+          ) : (
+            <Button
+              type='submit'
+              variant='contained'
+              className='editButton'
+            > <ChangeCircleIcon /> Update </Button>
+
+          )
+          }
+
         </div>
         <div className='info'>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <h3>First Name</h3>
-                <TextField variant='standard' className='profileFields'
-                  InputProps={{ disableUnderline: true }}
-                  defaultValue={user.firstname}
-                  disabled={disabledVal}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <h3>Last Name</h3>
-                <TextField variant='standard' className='profileFields'
-                  InputProps={{ disableUnderline: true }}
-                  defaultValue={user.lastname}
-                  disabled={disabledVal}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <h3>Contact number</h3>
-                <TextField variant='standard' className='profileFields'
-                  InputProps={{ disableUnderline: true }}
-                  defaultValue={user.mobile}
-                  disabled={disabledVal}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <h3>Email address</h3>
-                <TextField variant='standard' className='profileFields'
-                  InputProps={{ disableUnderline: true }}
-                  defaultValue={user.email}
-                  disabled={disabledVal}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <h3>Your City</h3>
-                <TextField variant='standard' className='profileFields'
-                  InputProps={{ disableUnderline: true }}
-                  defaultValue={user.address}
-                  multiline
-                  maxRows={4}
-                  disabled={disabledVal}
-                />
-              </Grid>
+              {fromField.map((item) => {
+                let defaultValue;
+                defaultValue = user[item.linkid];
+
+                return (
+                  <Grid item xs={6} key={item.linkid}>
+                    <h3>{item.name}</h3>
+                    <TextField
+                      variant='standard'
+                      className='profileFields'
+                      InputProps={{ disableUnderline: true }}
+                      defaultValue={defaultValue}
+                      name={item.linkid}
+                      disabled={disabledVal}
+                    />
+                  </Grid>
+                );
+              })}
+
               <Grid item xs={6}>
                 <h3>Country</h3>
                 <p>India</p>
@@ -151,8 +157,7 @@ function Dashboard() {
             </Grid>
           </Box>
         </div>
-
-      </div>
+      </form>
 
       <div className='plannedTrips'>
         <h2> Your Planned Trips </h2>
