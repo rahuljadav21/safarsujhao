@@ -6,17 +6,17 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import { getDestination, addToPlan, getUser } from "../../utils/APIRoutes"
+import { getDestination, addToPlan, getUser, addToFav } from "../../utils/APIRoutes"
 import { useParams } from 'react-router-dom'
 import DestinationPhotos from '../../components/DestinationPhotos/DestinationPhotos'
 import Reviews from '../../components/Reviews/Reviews';
 import ReviewAdder from '../../components/ReviewAdder/ReviewAdder';
 import Maps from '../../components/Map/Maps';
-
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../redux/features/auth'
 import AddToPlan from '../../components/AddToPlan/AddToPlan';
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const style = {
   position: 'absolute',
@@ -37,10 +37,14 @@ function Destination() {
   const [destination, setDestination] = useState({});
   const [location, setLocation] = useState();
   const [plans, setPlans] = useState([]);
+  const [favModal,setfavModal] = useState(false);
   const user = useSelector(selectUser);
+  const [currUser,setCurrUser] = useState({});
+  console.log(user)
 
   const fetchData = () => {
-    console.log(getDestination + id)
+    
+
     fetch(getDestination + id)
       .then(response => {
         return response.json()
@@ -53,28 +57,61 @@ function Destination() {
           latitude: data.geometry.coordinates[1]
         })
       })
+    
+      fetch(getUser + user._id)
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      setCurrUser(data)
+      console.log(currUser)
+      
+    })
   }
 
   useEffect(() => {
     fetchData()
   }, [])
 
+  console.log(currUser)
   const [open, setOpen] = useState(false);
+
   const handleOpen = () => {
-    
-    fetch(getUser + user._id)
-    .then(response => {
-      return response.json()
-    })
-    .then(data => {
-      console.log(data)
-      setPlans(data.tripPlans)
-    })
+    setPlans(currUser.tripPlans)
     console.log(plans)
     setOpen(true);
   }
   const handleClose = () => setOpen(false);
- 
+  const openfavModal = ()=>{
+    setfavModal(true);
+  }
+  const closefavModal = ()=>{
+    setfavModal(false);
+  }
+
+//   router.put("/addtofav/:id", addToFavoritePlaces);
+// router.put("/removefav/:id", removeFromFavoritePlaces);
+
+  const addToFavorite= ()=> {
+    fetch(addToFav + `${destination._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+  
+    })
+      .then(response => {
+          // Handle the response
+          return response.json();
+      })
+      .then(data =>{
+         console.log(data)
+      })
+      .catch(error => {
+          // Handle the error
+      });
+  window.location = `/destination/${destination._id}`
+  }
 
 
   return (
@@ -107,7 +144,8 @@ function Destination() {
               Best time to Visit : {destination.bestTimeToVisit ? destination.bestTimeToVisit : "Anytime"}
             </div>
             <div className="btn">
-              <Button variant="contained"> Add to Favourite </Button>
+              {currUser.favouritePlaces.includes(destination._id) ? <FavoriteIcon /> : <FavoriteBorderIcon onClick={openfavModal} />  }
+              
               <Button variant="contained" onClick={handleOpen}> Add to Plan </Button>
             </div>
 
@@ -122,25 +160,30 @@ function Destination() {
                   Add to Plan
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  {/* <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                    {[1, 2, 3].map((value) => (
-                      <ListItem
-                        key={value}
-                        disableGutters
-                        secondaryAction={
-                          <IconButton aria-label="comment">
-                            <AddCircleIcon onClick={handleClose} />
-                          </IconButton>
-                        }
-                      >
-                        <ListItemText primary={`Line item ${value}`} />
-                      </ListItem>
-                    ))}
-                  </List> */}
                   <AddToPlan destination = {destination} plans = {plans} id = {id} />
                 </Typography>
               </Box>
             </Modal>
+            <Modal
+                    open={favModal}
+                    onClose={closefavModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Add To Favorite
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Do you want to Add this destination to Favorite ?
+                            <div className="btn">
+                                <Button variant="contained" onClick={closefavModal}> Cancle</Button>
+                                <Button variant="contained" onClick={addToFavorite}> Add</Button>
+                            </div>
+
+                        </Typography>
+                    </Box>
+                </Modal>
           </div>
           <div className='info-map'>
 
