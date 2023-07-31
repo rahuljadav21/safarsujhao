@@ -63,12 +63,13 @@ const Navbar = () => {
   // logout
   const navigate = useNavigate();
   const handleLogout = async () => {
-    const id = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    )._id;
+    // const id = await JSON.parse(
+    //   localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    // )._id;
+
     axios({
       method: "GET",
-      url: `${logoutRoute}/${id}`,
+      url: `${logoutRoute}${user._id}`,
     }).then(response => {
       if (response.status === 200) {
         localStorage.clear();

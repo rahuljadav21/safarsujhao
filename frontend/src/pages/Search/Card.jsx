@@ -1,24 +1,26 @@
 import React, { useState } from "react";
-import { Card, Chip, Rating, Box, CardHeader, CardMedia, CardContent, CardActions, Avatar, IconButton, Typography } from "@mui/material";
-import { red } from "@mui/material/colors";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useNavigate } from 'react-router-dom'
+import { Card, Chip, Rating, Box, CardMedia, CardContent, CardActions, IconButton, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 
 const CardComponent = ({ product }) => {
+  const navigate = useNavigate();
+
   const placeImage =
     "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80";
-  const name = "Goa";
-  const price = "2000";
-  const rating = "4.5";
-  const [Favourite, setFavourite] = useState(true);
 
+  const [Favourite, setFavourite] = useState(true);
   const setFavouriteHandler = () => {
     setFavourite(!Favourite);
   };
 
+  const handalClickCard = async () => {
+    navigate(`/destination/${product._id}`);
+  };
+
   return (
-    <Card sx={{ display: 'flex', flexDirection: 'column', height: '400px' }}>
+    <Card onClick={handalClickCard} sx={{ display: 'flex', flexDirection: 'column', height: '400px' }}>
       <CardMedia component="img" height="194" image={placeImage} alt="Paella dish" />
       <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <CardContent>

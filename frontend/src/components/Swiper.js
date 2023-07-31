@@ -1,12 +1,14 @@
 import styles from './styles/swiper.module.css';
+import { useNavigate } from 'react-router-dom'
 import { Rating, Box, Typography } from '@mui/material'
 const Swiper = ({ items }) => {
-    return (
+    const navigate = useNavigate();
 
+    return (
         <swiper-container className={styles.swiperContainer} slides-per-view="3" navigation="true" space-between="30" free-mode="true">
             {items.map((item) => {
                 return (
-                    <swiper-slide className={styles.swiperSlide} key={item.id} lazy="true">
+                    <swiper-slide onClick={() => navigate(`/destination/${item.id}`)} className={styles.swiperSlide} key={item.id} lazy="true">
                         <div className={styles.swiperImage}>
                             <img loading="lazy" src={item.imageUrl} alt={item.name} style={{ height: '100%', width: '100%', objectFit: 'cover', borderRadius: "8px" }} />
                         </div>

@@ -1,24 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from '../../components/Navbar';
 import './style.css';
-import { Rating } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import { Button } from '@mui/material';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import { getDestination, addToPlan, getUser, addToFav } from '../../utils/APIRoutes';
+
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import DestinationPhotos from './../../components/DestinationPhotos/DestinationPhotos';
-import Reviews from '../../components/Reviews/Reviews';
-import ReviewAdder from '../../components/ReviewAdder/ReviewAdder';
-import Maps from '../../components/Map/Maps';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../redux/features/auth';
+
+// MUI 
+import { Box, Modal, Typography, Button, Rating } from '@mui/material';
+
+// components
 import AddToPlan from '../../components/AddToPlan/AddToPlan';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddToFav from '../../components/AddToPlan/AddToFav';
-import { setUserData } from './../../redux/features/userinfo'
+import Reviews from '../../components/Reviews/Reviews';
+import Maps from '../../components/Map/Maps';
+import ReviewAdder from '../../components/ReviewAdder/ReviewAdder';
+import DestinationPhotos from './../../components/DestinationPhotos/DestinationPhotos';
+
+// API
+import { getDestination } from '../../utils/APIRoutes';
 
 const style = {
   position: 'absolute',
@@ -37,9 +35,9 @@ function Destination() {
   const [destination, setDestination] = useState({});
   const [location, setLocation] = useState();
   const [plans, setPlans] = useState([]);
-  const [favModal, setfavModal] = useState(false);
-  const user = useSelector(selectUser);
-  const [currUser, setCurrUser] = useState(user);
+  // const [favModal, setfavModal] = useState(false);
+
+  const userData = useSelector((state) => state.userinfo.userData);
 
   const fetchData = () => {
     fetch(getDestination + id)
@@ -66,14 +64,14 @@ function Destination() {
 
   const handleClose = () => setOpen(false);
 
-  const openfavModal = () => {
-    setfavModal(true);
-  };
+  // const openfavModal = () => {
+  //   setfavModal(true);
+  // };
 
 
   return (
     <div className="main-container">
-      <DestinationPhotos images={destination.photos} />
+      <DestinationPhotos images={destination.photo} />
 
       <div className="info-container">
         <div className="info">
@@ -118,7 +116,8 @@ function Destination() {
           {location ? <Maps longitude={location.longitude} latitude={location.latitude} /> : 'Map is Loading...'}
         </div>
       </div>
-      <div className="comments">
+      <div className="comments" >
+
         <div className="review-container">
           <div className="review-title">
             Reviews
@@ -127,6 +126,10 @@ function Destination() {
             <Reviews comments={destination.reviews} />
           </div>
         </div>
+        <div className="add-review">
+          <ReviewAdder id={id} />
+        </div>
+
       </div>
     </div>
   );
