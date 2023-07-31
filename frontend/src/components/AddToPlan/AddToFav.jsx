@@ -51,12 +51,12 @@ function AddToFav(props) {
           .catch(error => {
               // Handle the error
           });
-      //window.location = `/destination/${destination._id}`
+      window.location = `/destination/${props.destination._id}`
       }
 
   return (
     <div>
-        {props.currUser?.favouritePlaces.includes(props.destination?._id) ? <FavoriteIcon /> : <FavoriteBorderIcon onClick={openfavModal} />  }
+        {props.user?.favouritePlaces.includes(props.destination._id) ? <FavoriteIcon /> : <FavoriteBorderIcon onClick={openfavModal} />  }
         <Modal
                     open={favModal}
                     onClose={closefavModal}

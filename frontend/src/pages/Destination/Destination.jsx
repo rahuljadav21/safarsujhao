@@ -18,6 +18,7 @@ import { selectUser } from '../../redux/features/auth';
 import AddToPlan from '../../components/AddToPlan/AddToPlan';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddToFav from '../../components/AddToPlan/AddToFav';
+import { setUserData } from './../../redux/features/userinfo'
 
 const style = {
   position: 'absolute',
@@ -52,28 +53,14 @@ function Destination() {
       });
   };
 
-  const fetchcurrUser = () => {
-    fetch(getUser + user?._id)
-      .then((response) => response.json())
-      .then((data) => {
-        setCurrUser(data);
-      });
-  };
-
   useEffect(() => {
     fetchData();
-    fetchcurrUser();
   }, []);
 
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
-    fetch(getUser + user._id)
-      .then((response) => response.json())
-      .then((data) => {
-        setPlans(data.tripPlans);
-      });
-    setPlans(currUser.tripPlans);
+    setPlans(userData.tripPlans);
     setOpen(true);
   };
 
@@ -83,28 +70,6 @@ function Destination() {
     setfavModal(true);
   };
 
-  const closefavModal = () => {
-    setfavModal(false);
-  };
-
-  const addToFavorite = () => {
-    fetch(addToFav + `${destination?._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId: user._id,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        // Handle the error
-      });
-  };
 
   return (
     <div className="main-container">
@@ -127,11 +92,12 @@ function Destination() {
           <div className="detail">Best time to Visit: {destination.bestTimeToVisit ? destination.bestTimeToVisit : 'Anytime'}</div>
           <div className="btn">
             {/* Replace with proper onClick handlers */}
-            {currUser?.favouritePlaces?.includes(destination._id) ? (
+            {/* {userData?.favouritePlaces?.includes(destination._id) ? (
               <FavoriteIcon />
             ) : (
               <FavoriteBorderIcon onClick={openfavModal} />
-            )}
+            )} */}
+            <AddToFav destination={destination} user={userData} />
             <Button variant="contained" onClick={handleOpen}>
               Add to Plan
             </Button>
@@ -143,7 +109,7 @@ function Destination() {
                 Add to Plan
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                <AddToPlan plans={plans} id={id} />
+                <AddToPlan plans={plans} destination={destination} id={id} />
               </Typography>
             </Box>
           </Modal>
@@ -156,36 +122,9 @@ function Destination() {
         <div className="review-container">
           <div className="review-title">
             Reviews
-            <div className="info-container">
-              {/* Render destination details once */}
-              <div className="info">
-                <div className="detail">Name: {destination.name}</div>
-                <div className="detail">
-                  Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate itaque praesentium ipsum odit
-                  laboriosam vel vitae quos assumenda, fuga dicta quia enim quam iste expedita aut doloremque ratione aperiam
-                  perspiciatis!
-                </div>
-                <div className="detail">
-                  Ratings: {destination.ratings ? <Rating name="read-only" value={destination.ratings} readOnly /> : 'No Ratings Available'}
-                </div>
-                <div className="detail">Location: {destination.city + ' ' + destination.state + ' ' + destination.country}</div>
-                <div className="detail">NearBy Airport: {destination.nearestAirport}</div>
-                <div className="detail">NearBy Railway Station: {destination.nearestRailwayStation}</div>
-                <div className="detail">Best time to Visit: {destination.bestTimeToVisit ? destination.bestTimeToVisit : 'Anytime'}</div>
-                <div className="btn">
-                  <AddToFav currUser={currUser} destination={destination} />
-                  <Button variant="contained" onClick={handleOpen}>
-                    Add to Plan
-                  </Button>
-                </div>
-              </div>
-              <div className="reviews">
-                <Reviews comments={destination.reviews} />
-              </div>
-            </div>
-            <div className="add-review">
-              <ReviewAdder id={id} />
-            </div>
+          </div>
+          <div className="reviews">
+            <Reviews comments={destination.reviews} />
           </div>
         </div>
       </div>
