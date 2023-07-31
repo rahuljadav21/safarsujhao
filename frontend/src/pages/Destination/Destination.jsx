@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../../redux/features/auth'
 import AddToPlan from '../../components/AddToPlan/AddToPlan';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import AddToFav from '../../components/AddToPlan/AddToFav';
 
 const style = {
   position: 'absolute',
@@ -37,13 +38,13 @@ function Destination() {
   const [destination, setDestination] = useState({});
   const [location, setLocation] = useState();
   const [plans, setPlans] = useState([]);
-  const [favModal,setfavModal] = useState(false);
+  const [favModal, setfavModal] = useState(false);
   const user = useSelector(selectUser);
-  const [currUser,setCurrUser] = useState({});
+  const [currUser, setCurrUser] = useState(user);
   console.log(user)
 
   const fetchData = () => {
-    
+
 
     fetch(getDestination + id)
       .then(response => {
@@ -57,20 +58,24 @@ function Destination() {
           latitude: data.geometry.coordinates[1]
         })
       })
-    
-      fetch(getUser + user._id)
-    .then(response => {
-      return response.json()
-    })
-    .then(data => {
-      setCurrUser(data)
-      console.log(currUser)
-      
-    })
   }
 
+  const fetchcurrUser = ()=>{
+    fetch(getUser + user?._id)
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        setCurrUser(data)
+        console.log(currUser)
+
+      })
+  }
+  
+
   useEffect(() => {
-    fetchData()
+    fetchData();
+    fetchcurrUser();
   }, [])
 
   console.log(currUser)
@@ -82,37 +87,42 @@ function Destination() {
     setOpen(true);
   }
   const handleClose = () => setOpen(false);
-  const openfavModal = ()=>{
+  const openfavModal = () => {
     setfavModal(true);
   }
-  const closefavModal = ()=>{
+  const closefavModal = () => {
     setfavModal(false);
   }
 
-//   router.put("/addtofav/:id", addToFavoritePlaces);
-// router.put("/removefav/:id", removeFromFavoritePlaces);
+  //   router.put("/addtofav/:id", addToFavoritePlaces);
+  // router.put("/removefav/:id", removeFromFavoritePlaces);
 
-  const addToFavorite= ()=> {
-    fetch(addToFav + `${destination._id}`, {
+  const addToFavorite = () => {
+    console.log(addToFav + `${destination?._id}`)
+    fetch(addToFav + `${destination?._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
-      }
-  
+      },
+      body: JSON.stringify({
+        userId: user._id
+      })
+
     })
       .then(response => {
-          // Handle the response
-          return response.json();
+        // Handle the response
+        return response.json();
       })
-      .then(data =>{
-         console.log(data)
+      .then(data => {
+        console.log(data)
       })
       .catch(error => {
-          // Handle the error
+        // Handle the error
       });
-  window.location = `/destination/${destination._id}`
+    //window.location = `/destination/${destination._id}`
   }
 
+  console.log(currUser)
 
   return (
     <>
@@ -144,8 +154,8 @@ function Destination() {
               Best time to Visit : {destination.bestTimeToVisit ? destination.bestTimeToVisit : "Anytime"}
             </div>
             <div className="btn">
-              {currUser.favouritePlaces.includes(destination._id) ? <FavoriteIcon /> : <FavoriteBorderIcon onClick={openfavModal} />  }
-              
+              {/* {currUser?.favouritePlaces.includes(destination._id) ? <FavoriteIcon /> : <FavoriteBorderIcon onClick={openfavModal} />  } */}
+              <AddToFav currUser={currUser} destination={destination} />
               <Button variant="contained" onClick={handleOpen}> Add to Plan </Button>
             </div>
 
@@ -160,11 +170,11 @@ function Destination() {
                   Add to Plan
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  <AddToPlan destination = {destination} plans = {plans} id = {id} />
+                  <AddToPlan destination={destination} plans={plans} id={id} />
                 </Typography>
               </Box>
             </Modal>
-            <Modal
+            {/* <Modal
                     open={favModal}
                     onClose={closefavModal}
                     aria-labelledby="modal-modal-title"
@@ -183,7 +193,7 @@ function Destination() {
 
                         </Typography>
                     </Box>
-                </Modal>
+                </Modal> */}
           </div>
           <div className='info-map'>
 
