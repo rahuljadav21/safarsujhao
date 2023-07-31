@@ -1,4 +1,4 @@
- :global {
+:global {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -40,7 +40,7 @@
     margin-left: 6%;
 }
 
-.profileData{
+.profileData {
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -71,6 +71,7 @@
     border-radius: 8px;
     padding: 1.5rem;
 }
+
 .personalHeading {
     display: flex;
     justify-content: left;
@@ -95,7 +96,34 @@
 .plannedTrips h2 {
     display: flex;
     justify-content: left;
-    margin: 0% 6% 2%;
+    margin: 0% 6% 0%;
+}
+
+.createPopup {
+    display: flex;
+    margin: auto;
+    margin-top: 40vh;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+    padding: 2rem;
+    box-shadow: 24;
+    background-color: white;
+    border-radius: 8px;
+}
+
+
+.plannedTrips .plannedTripsHead {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.plannedTripsHead Button {
+    width: 200px;
+    height: 35px;
+    border-radius: 8px;
+    margin: auto;
+    margin-right: 6%;
 }
 
 .plannedTrips .filterTitle {

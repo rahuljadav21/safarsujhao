@@ -83,3 +83,15 @@ module.exports.update = async (req, res, next) => {
         res.status(500).json({ msg: "Server error" });
     }
 };
+
+
+module.exports.getUser = async(req,res,next) =>{
+    try {
+        const user = await User.findById(req.params.userId).populate({
+            path: 'tripPlans'
+        });
+        res.status(200).send(user);
+    } catch (error) {
+        next(error)
+    }
+}

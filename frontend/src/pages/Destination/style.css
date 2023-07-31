@@ -8,7 +8,7 @@
 }
 
 
-.detail{
+.detail {
     margin: 3px;
     font-size: larger;
     background: white;
@@ -17,22 +17,23 @@
     font-style: inherit;
 }
 
-.main-container{
+.main-container {
+    padding-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.info-map{
+.info-map {
     margin: 0vh 4vh;
     border: 2px solid grey;
 }
 
-.review-container{
+.review-container {
     margin: 10vh 0vh;
 }
 
-.review-title{
+.review-title {
     font-size: x-large;
     font-style: inherit;
     margin: 1vh 0vh;
@@ -40,21 +41,21 @@
     background: white;
 }
 
-.review-container{
+.review-container {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
 }
 
-.btn{
+.btn {
     margin-top: 3vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-.review-title{
+.review-title {
     font-size: x-large;
     font-style: inherit;
     margin: 1vh 0vh;
@@ -63,7 +64,7 @@
     background: white;
 }
 
-.comments{
+.comments {
     display: flex;
     justify-content: space-around;
 }

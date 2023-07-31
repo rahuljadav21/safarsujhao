@@ -38,7 +38,7 @@ function ContactUs() {
                             rows={4}
                             required
                         />
-                        <Button variant="contained"
+                        <Button fullWidth variant="contained"
                             onClick={() => {
                                 alert("We have recieved your respone");
                             }}>
