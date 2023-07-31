@@ -137,7 +137,7 @@ function Destination() {
                       </ListItem>
                     ))}
                   </List> */}
-                  <AddToPlan plans = {plans} id = {id} />
+                  <AddToPlan destination = {destination} plans = {plans} id = {id} />
                 </Typography>
               </Box>
             </Modal>
