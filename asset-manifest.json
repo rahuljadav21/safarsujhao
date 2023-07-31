@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/safarsujhao/static/css/main.cb049b71.css",
+    "main.js": "/safarsujhao/static/js/main.5282df7f.js",
+    "static/js/483.466f2a0e.chunk.js": "/safarsujhao/static/js/483.466f2a0e.chunk.js",
+    "index.html": "/safarsujhao/index.html",
+    "main.cb049b71.css.map": "/safarsujhao/static/css/main.cb049b71.css.map",
+    "main.5282df7f.js.map": "/safarsujhao/static/js/main.5282df7f.js.map",
+    "483.466f2a0e.chunk.js.map": "/safarsujhao/static/js/483.466f2a0e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cb049b71.css",
+    "static/js/main.5282df7f.js"
+  ]
+}
