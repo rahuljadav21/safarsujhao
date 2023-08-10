@@ -1,4 +1,4 @@
-export const host = "https://safarsujhao.onrender.com";
+export const host = "https://safarsujhao-418x.onrender.com";
 export const loginRoute = `${host}/api/auth/login`;
 export const registerRoute = `${host}/api/auth/register`;
 export const logoutRoute = `${host}/api/auth/logout/`;

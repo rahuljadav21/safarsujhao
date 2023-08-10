@@ -25,10 +25,11 @@ function App() {
     if (userData) {
       let userDataJSON = JSON.parse(userData)
       dispatch(loginSuccess(userDataJSON));
-
+      
       axios.get(`${getUser}${userDataJSON._id}`)
         .then(function (response) {
           const apiResponseData = response.data;
+          console.log(apiResponseData)
           dispatch(setUserData(apiResponseData));
         })
         .catch(function (error) {
