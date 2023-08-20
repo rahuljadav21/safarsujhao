@@ -96,12 +96,12 @@ const Navbar = () => {
                 mr: 2,
                 fontFamily: 'monospace',
                 fontWeight: 700,
-                letterSpacing: '.3rem',
+                letterSpacing: '.1rem',
                 color: 'inherit',
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              Travel Planner Pro
             </Typography>
           </Box>
 
