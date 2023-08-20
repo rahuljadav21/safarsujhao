@@ -4,16 +4,12 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { BiSolidEditAlt } from "react-icons/bi"
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
-import { TextField } from '@mui/material';
+import { TextField, Modal, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 
-
-// redux store
-import { useSelector, useDispatch } from 'react-redux';
-import { selectUser, loginSuccess } from './../../redux/features/auth'
+import { useSelector } from 'react-redux'
+import { setUserData } from './../../redux/features/userinfo'
 
 const items = [
   {
@@ -63,6 +59,17 @@ const items = [
   },
 ];
 
+const user = {
+  username: "Batman2000",
+  firstname: "Bruce",
+  lastname: "Wayne",
+  mobile: "1234567890",
+  email: "email@xyz.com",
+  address: "Gotham",
+  country: "India",
+  img: 'https://images.unsplash.com/photo-1531259683007-016a7b628fc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80',
+}
+
 const fromField = [
   { name: "First Name", type: "text", linkid: "firstname" },
   { name: "Last Name", type: "text", linkid: "lastname" },
@@ -71,21 +78,10 @@ const fromField = [
   { name: "Address", type: "text", linkid: "address" },
 ];
 
-
 function Dashboard() {
-  const userData = useSelector(selectUser);
 
-  const user = {
-    username: "userData.username",
-    firstname: "userData.firstname",
-    lastname: "userData.lastname",
-    mobile: "userData.mobile",
-    email: "userData.email",
-    address: "userData.address",
-    country: "India",
-    img: 'https://images.unsplash.com/photo-1531259683007-016a7b628fc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80',
-  }
-
+  const userData = useSelector((state) => state.userinfo.userData);
+  console.log(userData)
   const [disabledVal, setDisabledVal] = useState(true);
 
   const [open, setOpen] = React.useState(false);
@@ -121,7 +117,7 @@ function Dashboard() {
         > <BiSolidEditAlt /> Edit </Button>
       </div>
 
-      <form onSubmit={handleUpdate} component="form"  className='profileInfo'>
+      <form onSubmit={handleUpdate} component="form" className='profileInfo'>
         <div className='personalHeading'>
           <h2> Personal Information </h2>
           {disabledVal ? (
@@ -203,7 +199,7 @@ function Dashboard() {
 
       <div className='Favorites'>
         <h2> Your Favorite Destinations </h2>
-        <swiper-container class="mySwiper" slides-per-view="4" navigation="true"
+        <swiper-container className="DashboardSwiper" slides-per-view="4" navigation="true"
           space-between="30" free-mode="true">
           {items.map((item) => {
             return (
@@ -248,7 +244,4 @@ function Dashboard() {
     </div>
   )
 }
-
 export default Dashboard
-
-

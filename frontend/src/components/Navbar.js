@@ -34,7 +34,6 @@ import {
 
 const pages = [
   { name: 'Home', path: '/' },
-  { name: 'Blog', path: '/' },
   { name: 'Contact', path: '/contact' }
 ];
 
@@ -64,12 +63,13 @@ const Navbar = () => {
   // logout
   const navigate = useNavigate();
   const handleLogout = async () => {
-    const id = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    )._id;
+    // const id = await JSON.parse(
+    //   localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    // )._id;
+
     axios({
       method: "GET",
-      url: `${logoutRoute}/${id}`,
+      url: `${logoutRoute}${user._id}`,
     }).then(response => {
       if (response.status === 200) {
         localStorage.clear();
@@ -99,9 +99,10 @@ const Navbar = () => {
                 letterSpacing: '.1rem',
                 color: 'inherit',
                 textDecoration: 'none',
+                textTransform: 'uppercase'
               }}
             >
-              Travel Planner Pro
+              Safar Sujhao
             </Typography>
           </Box>
 
@@ -126,7 +127,7 @@ const Navbar = () => {
             <Box sx={{ flexGrow: 0, ml: 1 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User Name" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="User Name" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png" />
                 </IconButton>
               </Tooltip>
               <Menu

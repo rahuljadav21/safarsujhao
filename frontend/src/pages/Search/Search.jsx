@@ -1,66 +1,58 @@
 import React from 'react';
-import { Box, IconButton, Autocomplete, TextField } from '@mui/material';
-import './Search.css';
-import SearchIcon from '@mui/icons-material/Search';
-import LocationIcon from '@mui/icons-material/LocationSearching';
-import Card from './Card';
+import CardComponent from './Card';
+import { Pagination, Box, Grid, Container } from '@mui/material';
 import { useSelector } from 'react-redux';
+import SearchBar from './../../components/SearchBar'
 
-
-function Search() {
+const Search = () => {
     const apiResponse = useSelector((state) => state.destination.apiResponse);
-    const uniqueCityList = useSelector((state) => state.destination.uniqueCityList);
+    const searchCityName = useSelector((state) => state.destination.searchCityName);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const form = event.target;
-        const formData = new FormData(form);
-        const searchCity = formData.get('searchCity');
-        console.log(searchCity);
+    // Filter destinations by city name
+    const destinationSearchData = apiResponse.filter(
+        (destination) => destination.city === searchCityName
+    );
 
-        // Retrieve all destination data for the selected city
-        const destinationSearchData = apiResponse.filter((destination) => destination.city === searchCity);
-        console.log(destinationSearchData);
+    // Pagination setup
+    const itemsPerPage = 12;
+    const [page, setPage] = React.useState(1);
+
+    const handleChange = (event, value) => {
+        setPage(value);
     };
 
-    return (
-        <div>
-            <Box component="form" onSubmit={handleSubmit} className="searchBox">
-                <LocationIcon sx={{ mr: 1 }} />
-                <Autocomplete
-                    fullWidth
-                    disablePortal
-                    id="combo-box-demo"
-                    options={uniqueCityList}
-                    renderInput={(params) =>
-                        <TextField
-                            {...params}
-                            placeholder='City'
-                            name='searchCity'
-                            sx={{
-                                '& .MuiOutlinedInput-root': {
-                                    '& fieldset': {
-                                        border: 'none', // Hide the outline border
-                                    },
-                                },
-                            }} />
-                    }
-                />
-                <IconButton type='submit' color="primary" aria-label="add to shopping cart">
-                    <SearchIcon />
-                </IconButton>
-            </Box>
-            
-            <div className="cardSection">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-            </div>
-        </div>
-    )
-}
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, destinationSearchData.length);
 
-export default Search
+    const displayedProducts = destinationSearchData.slice(startIndex, endIndex);
+
+    console.log(displayedProducts)
+
+    return (
+        <Box sx={{ height: '100vh', paddingTop: '60px' }}>
+            <Container maxWidth="xl" sx={{ height: '100%', display: "flex", flexDirection: 'column', justifyContent: 'space-between' }}>
+                <Box>
+                    <Box mb={2} p={1} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <SearchBar isNavigate={false} />
+                    </Box>
+                    <Grid container spacing={2} >
+                        {displayedProducts.map((product) => (
+                            <Grid item xs={12} sm={6} md={3} key={product.name}>
+                                <CardComponent product={product} />
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Box>
+                <Box pb={2} sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Pagination
+                        count={Math.ceil(destinationSearchData.length / itemsPerPage)}
+                        page={page}
+                        onChange={handleChange}
+                    />
+                </Box>
+            </Container>
+        </Box>
+    );
+};
+
+export default Search;

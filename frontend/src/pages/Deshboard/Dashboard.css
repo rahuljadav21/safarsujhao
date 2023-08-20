@@ -1,4 +1,4 @@
- :global {
+:global {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -40,7 +40,7 @@
     margin-left: 6%;
 }
 
-.profileData{
+.profileData {
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -71,6 +71,7 @@
     border-radius: 8px;
     padding: 1.5rem;
 }
+
 .personalHeading {
     display: flex;
     justify-content: left;

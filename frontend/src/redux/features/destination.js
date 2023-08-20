@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     apiResponse: [],
-    uniqueCityList: [], // Initialize uniqueCityList as an empty array
+    uniqueCityList: [],
+    searchCityName: []
 };
 
 const destinationSlice = createSlice({
@@ -14,8 +15,11 @@ const destinationSlice = createSlice({
             // Extract the unique city names from the API response and set them in the uniqueCityList state
             state.uniqueCityList = [...new Set(action.payload.map((destination) => destination.city))];
         },
+        setSearchCityName: (state, action) => {
+            state.searchCityName = action.payload;
+        },
     },
 });
 
-export const { setApiResponse } = destinationSlice.actions;
+export const { setApiResponse, setSearchCityName } = destinationSlice.actions;
 export default destinationSlice.reducer;

@@ -78,6 +78,7 @@ module.exports.deleteDestination = async (req, res, next) => {
 
 module.exports.addToFavoritePlaces = async (req, res, next) => {
     try {
+        console.log(req.body)
         const currentUser = await user.findById(req.body.userId);
         const destination = await Destination.findById(req.params.id);
         if (destination) {

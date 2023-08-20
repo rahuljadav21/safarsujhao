@@ -1,17 +1,16 @@
-import * as React from 'react';
-import { Link as NavLink } from 'react-router-dom'
+import React from 'react';
+import { Link as NavLink, useNavigate } from 'react-router-dom'
 
 // MUI component
 import {
-  Avatar,
   Button,
-  CssBaseline,
   TextField,
   FormControlLabel,
   Checkbox,
   Link,
   Grid,
   Box,
+  Paper,
   Typography,
   Container,
   IconButton,
@@ -22,7 +21,6 @@ import {
 } from '@mui/material';
 
 // MUI Icon
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
@@ -30,18 +28,10 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
 import { registerRoute } from './../../utils/APIRoutes'
 
-const fromField = [
-  { name: "User ID", type: "text", linkid: "username" },
-  { name: "First Name", type: "text", linkid: "firstname" },
-  { name: "Last Name", type: "text", linkid: "lastname" },
-  { name: "Email Address", type: "email", linkid: "email" },
-  { name: "Mobile Number", type: "text", linkid: "mobile" },
-  { name: "Address", type: "text", linkid: "address" },
-];
-
 function Signup() {
-  const [showPassword, setShowPassword] = React.useState(false);
+  const navigate = useNavigate();
 
+  const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleSubmit = async (event) => {
@@ -65,7 +55,7 @@ function Signup() {
     })
       .then(function (response) {
         //handle success
-        console.log(response);
+        navigate('/login')
       })
       .catch(function (error) {
         //handle error
@@ -74,40 +64,85 @@ function Signup() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
+    <Container component="main" maxWidth="sm" sx={{ paddingY: "80px" }}>
+      <Paper variant="outlined" sx={{ borderRadius: '8px', p: { xs: 2, md: 3 } }}>
+        <Typography component="h1" variant="h4" align="center">
+          Sign Up
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                variant="standard"
+                name="username"
+                required
+                fullWidth
+                id="username"
+                label="User ID"
+                autoFocus
+              />
+            </Grid>
 
-            {fromField.map((item) => {
-              return (
-                <Grid item xs={12} key={item.linkid}>
-                  <TextField
-                    variant="standard"
-                    name={item.linkid}
-                    required
-                    fullWidth
-                    id={item.linkid}
-                    label={item.name}
-                    autoFocus
-                  />
-                </Grid>
-              )
-            })}
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="standard"
+                name="firstname"
+                required
+                fullWidth
+                id="firstname"
+                label="First Name"
+                autoFocus
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="standard"
+                name="lastname"
+                required
+                fullWidth
+                id="lastname"
+                label="Last Name"
+                autoFocus
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                type='email'
+                variant="standard"
+                name="email"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                autoFocus
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="standard"
+                name="mobile"
+                required
+                fullWidth
+                id="mobile"
+                label="Mobile Number"
+                autoFocus
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                variant="standard"
+                name="address"
+                required
+                fullWidth
+                id="address"
+                label="Address"
+                autoFocus
+              />
+            </Grid>
 
             <Grid item xs={12}>
               <FormControl fullWidth variant="standard">
@@ -153,7 +188,7 @@ function Signup() {
             </Grid>
           </Grid>
         </Box>
-      </Box>
+      </Paper>
     </Container>
   );
 }

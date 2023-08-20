@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../../components/Navbar'
-import "./style.css"
-import { Rating } from '@mui/material'
-import Typography from '@mui/material/Typography';
-import { Button } from '@mui/material';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import { getDestination, addToPlan, getUser, addToFav } from "../../utils/APIRoutes"
-import { useParams } from 'react-router-dom'
-import DestinationPhotos from '../../components/DestinationPhotos/DestinationPhotos'
-import Reviews from '../../components/Reviews/Reviews';
-import ReviewAdder from '../../components/ReviewAdder/ReviewAdder';
-import Maps from '../../components/Map/Maps';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import './style.css';
+
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../redux/features/auth'
+
+// MUI 
+import { Box, Modal, Typography, Button, Rating } from '@mui/material';
+
+// components
 import AddToPlan from '../../components/AddToPlan/AddToPlan';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import AddToFav from '../../components/AddToPlan/AddToFav';
+import Reviews from '../../components/Reviews/Reviews';
+import Maps from '../../components/Map/Maps';
+import ReviewAdder from '../../components/ReviewAdder/ReviewAdder';
+import DestinationPhotos from './../../components/DestinationPhotos/DestinationPhotos';
+
+// API
+import { getDestination } from '../../utils/APIRoutes';
 
 const style = {
   position: 'absolute',
@@ -30,190 +30,109 @@ const style = {
   p: 4,
 };
 
-
 function Destination() {
-
   const { id } = useParams();
   const [destination, setDestination] = useState({});
   const [location, setLocation] = useState();
   const [plans, setPlans] = useState([]);
-  const [favModal,setfavModal] = useState(false);
-  const user = useSelector(selectUser);
-  const [currUser,setCurrUser] = useState({});
-  console.log(user)
+  // const [favModal, setfavModal] = useState(false);
+
+  const userData = useSelector((state) => state.userinfo.userData);
 
   const fetchData = () => {
-    
-
     fetch(getDestination + id)
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        console.log(data)
+      .then((response) => response.json())
+      .then((data) => {
         setDestination(data);
         setLocation({
           longitude: data.geometry.coordinates[0],
-          latitude: data.geometry.coordinates[1]
-        })
-      })
-    
-      fetch(getUser + user._id)
-    .then(response => {
-      return response.json()
-    })
-    .then(data => {
-      setCurrUser(data)
-      console.log(currUser)
-      
-    })
-  }
+          latitude: data.geometry.coordinates[1],
+        });
+      });
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
-  console.log(currUser)
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
-    setPlans(currUser.tripPlans)
-    console.log(plans)
+    setPlans(userData.tripPlans);
     setOpen(true);
-  }
+  };
+
   const handleClose = () => setOpen(false);
-  const openfavModal = ()=>{
-    setfavModal(true);
-  }
-  const closefavModal = ()=>{
-    setfavModal(false);
-  }
 
-//   router.put("/addtofav/:id", addToFavoritePlaces);
-// router.put("/removefav/:id", removeFromFavoritePlaces);
-
-  const addToFavorite= ()=> {
-    fetch(addToFav + `${destination._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-  
-    })
-      .then(response => {
-          // Handle the response
-          return response.json();
-      })
-      .then(data =>{
-         console.log(data)
-      })
-      .catch(error => {
-          // Handle the error
-      });
-  window.location = `/destination/${destination._id}`
-  }
+  // const openfavModal = () => {
+  //   setfavModal(true);
+  // };
 
 
   return (
-    <>
-      <Navbar />
-      <div className='main-container'>
-        <DestinationPhotos images={destination.photos} />
+    <div className="main-container">
+      <DestinationPhotos images={destination.photo} />
 
-        <div className='info-container'>
-          <div className='info'>
-            <div className="detail">
-              Name : {destination.name}
-            </div>
-            <div className="detail">
-              Description : Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate itaque praesentium ipsum odit laboriosam vel vitae quos assumenda, fuga dicta quia enim quam iste expedita aut doloremque ratione aperiam perspiciatis!
-            </div>
-            <div className="detail">
-              Ratings : {destination.ratings ? <Rating name="read-only" value={destination.ratings} readOnly /> : 'No Ratings Available'}
-            </div>
-            <div className="detail">
-              location : {destination.city + " " + destination.state + " " + destination.country}
-            </div>
-            <div className="detail">
-              NearBy Airport : {destination.nearestAirport}
-            </div>
-            <div className="detail">
-              NearBy Railway Station : {destination.nearestRailwayStation}
-            </div>
-            <div className="detail">
-              Best time to Visit : {destination.bestTimeToVisit ? destination.bestTimeToVisit : "Anytime"}
-            </div>
-            <div className="btn">
-              {currUser.favouritePlaces.includes(destination._id) ? <FavoriteIcon /> : <FavoriteBorderIcon onClick={openfavModal} />  }
-              
-              <Button variant="contained" onClick={handleOpen}> Add to Plan </Button>
-            </div>
-
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  Add to Plan
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  <AddToPlan destination = {destination} plans = {plans} id = {id} />
-                </Typography>
-              </Box>
-            </Modal>
-            <Modal
-                    open={favModal}
-                    onClose={closefavModal}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Add To Favorite
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Do you want to Add this destination to Favorite ?
-                            <div className="btn">
-                                <Button variant="contained" onClick={closefavModal}> Cancle</Button>
-                                <Button variant="contained" onClick={addToFavorite}> Add</Button>
-                            </div>
-
-                        </Typography>
-                    </Box>
-                </Modal>
+      <div className="info-container">
+        <div className="info">
+          <div className="detail">Name: {destination.name}</div>
+          <div className="detail">
+            Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate itaque praesentium ipsum odit
+            laboriosam vel vitae quos assumenda, fuga dicta quia enim quam iste expedita aut doloremque ratione aperiam
+            perspiciatis!
           </div>
-          <div className='info-map'>
+          <div className="detail">
+            Ratings: {destination.ratings ? <Rating name="read-only" value={destination.ratings} readOnly /> : 'No Ratings Available'}
+          </div>
+          <div className="detail">Location: {destination.city + ' ' + destination.state + ' ' + destination.country}</div>
+          <div className="detail">NearBy Airport: {destination.nearestAirport}</div>
+          <div className="detail">NearBy Railway Station: {destination.nearestRailwayStation}</div>
+          <div className="detail">Best time to Visit: {destination.bestTimeToVisit ? destination.bestTimeToVisit : 'Anytime'}</div>
+          <div className="btn">
+            {/* Replace with proper onClick handlers */}
+            {/* {userData?.favouritePlaces?.includes(destination._id) ? (
+              <FavoriteIcon />
+            ) : (
+              <FavoriteBorderIcon onClick={openfavModal} />
+            )} */}
+            <AddToFav destination={destination} user={userData} />
+            <Button variant="contained" onClick={handleOpen}>
+              Add to Plan
+            </Button>
+          </div>
 
-            {
-              location ? <Maps longitude={location.longitude} latitude={location.latitude} /> : "Map is Loading..."
-            }
+          <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Add to Plan
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                <AddToPlan plans={plans} destination={destination} id={id} />
+              </Typography>
+            </Box>
+          </Modal>
+        </div>
+        <div className="info-map">
+          {location ? <Maps longitude={location.longitude} latitude={location.latitude} /> : 'Map is Loading...'}
+        </div>
+      </div>
+      <div className="comments" >
 
-
+        <div className="review-container">
+          <div className="review-title">
+            Reviews
+          </div>
+          <div className="reviews">
+            <Reviews comments={destination.reviews} />
           </div>
         </div>
-        <div className="comments" >
-
-          <div className="review-container">
-            <div className="review-title">
-              Reviews
-            </div>
-            <div className="reviews">
-              <Reviews comments={destination.reviews} />
-            </div>
-          </div>
-          <div className="add-review">
-            <ReviewAdder id={id} />
-          </div>
-
+        <div className="add-review">
+          <ReviewAdder id={id} />
         </div>
 
       </div>
-
-    </>
-  )
+    </div>
+  );
 }
 
-export default Destination
+export default Destination;

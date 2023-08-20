@@ -1,18 +1,3 @@
-.searchBox {
-    margin: auto;
-    margin-top: 80px;
-    height: 50px;
-    padding: 5px 10px;
-    width: 460px;
-    display: flex;
-    align-items: center;
-    background-color: white;
-    border-radius: 8px;
-    padding: 5px 20px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-/***********************************************Card***********************************************/
 .cardSection {
     width: 100%;
     padding: 20px;
@@ -20,36 +5,43 @@
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
+
 .cardSection .exploreCard {
     width: 25vw;
     border: 2px solid rgba(0, 0, 0, 0.126);
     margin-bottom: 30px;
     border-radius: 10px;
 }
+
 .cardSection .exploreCard img {
     max-width: 100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
+
 .cardSection .exploreCard .details {
     padding: 10px;
 }
+
 .cardSection .exploreCard .details h2 {
     font-size: x-large;
     font-weight: 600;
     letter-spacing: 2px;
 }
+
 .cardSection .exploreCard .details .midSection {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 10px 0;
 }
+
 .cardSection .exploreCard .details .midSection .expense {
     display: flex;
     width: 50px;
     align-items: center;
 }
+
 .cardSection .exploreCard .details .midSection .rating {
     display: flex;
     width: 50px;
@@ -57,19 +49,23 @@
     flex-direction: row-reverse;
     font-size: larger;
 }
+
 .cardSection .exploreCard .details .midSection .rating p {
     padding: 0 5px;
 }
+
 .cardSection .exploreCard .details .lastSection {
     display: flex;
     padding: 5px 10px;
     align-items: center;
     justify-content: space-between;
 }
+
 .cardSection .exploreCard .details .lastSection .likeIcon {
     width: 30px;
     height: 30px;
 }
+
 .cardSection .exploreCard .details .lastSection .shareIcon {
     width: 20px;
     height: 20px;

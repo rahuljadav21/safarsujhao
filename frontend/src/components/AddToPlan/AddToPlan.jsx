@@ -30,12 +30,12 @@ function AddToPlan(props) {
     const handleOpen = () => setOpen(true);
     const [plan, setPlan] = useState({});
     console.log(props)
+
     const handleClose = (ev) => {
-        
-        console.log(plan)
+        window.location = `/destination/${props.destination._id}`
         setOpen(false);
     }
-
+    console.log(props)
     const addToTripPlan = () => {
             fetch(addToPlan + `${plan._id}/adddestination/${props.destination._id}`, {
             method: 'PUT',
@@ -66,7 +66,7 @@ function AddToPlan(props) {
                         disableGutters
                         secondaryAction={
                             <IconButton aria-label="comment">
-                                {e.destinations.includes(props.destination._id) ? <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                {e.destinations.includes(props.destination?._id) ? <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                     Alredy in Plan
                                     
 
